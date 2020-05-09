@@ -1,47 +1,106 @@
-require("dotenv").config();
-var express = require("express");
-var exphbs = require("express-handlebars");
-
-var db = require("./models");
-
-var app = express();
-var PORT = process.env.PORT || 3000;
-
-// Middleware
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
-app.use(express.static("public"));
-
-// Handlebars
-app.engine(
-  "handlebars",
-  exphbs({
-    defaultLayout: "main"
-  })
-);
-app.set("view engine", "handlebars");
-
-// Routes
-require("./routes/apiRoutes")(app);
-require("./routes/htmlRoutes")(app);
-
-var syncOptions = { force: false };
-
-// If running a test, set syncOptions.force to true
-// clearing the `testdb`
-if (process.env.NODE_ENV === "test") {
-  syncOptions.force = true;
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
 }
 
-// Starting the server, syncing our models ------------------------------------/
-db.sequelize.sync(syncOptions).then(function() {
-  app.listen(PORT, function() {
-    console.log(
-      "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
-      PORT,
-      PORT
-    );
+const express = require('express')
+const app = express()
+const bcrypt = require('bcrypt')
+const passport = require('passport')
+const exphbs = require('express-handlebars');
+const flash = require('express-flash')
+const session = require('express-session')
+const methodOverride = require('method-override')
+
+const initializePassport = require('./passport-config')
+initializePassport(
+  passport,
+  email => users.find(user => user.email === email),
+  id => users.find(user => user.id === id)
+)
+
+const users = []
+app.engine(
+  'handlebars',
+  exphbs({
+      defaultLayout: 'main'
+  })
+);
+app.set('view engine', 'handlebars');
+
+app.use(express.static('public'));
+app.use(express.urlencoded({
+  extended: false
+}));
+
+app.use(require('express-session')({
+  secret: 'keyboard cat',
+  resave: true,
+  saveUninitialized: true
+}));
+
+app.use(flash());
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(methodOverride('_method'));
+
+app.get('/', checkAuthenticated, (req, res) => {
+  res.render('index', {
+      name: req.user.name
   });
 });
 
-module.exports = app;
+app.get('/login', checkNotAuthenticated, (req, res) => {
+  res.render('login');
+});
+
+app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
+  successRedirect: '/',
+  failureRedirect: '/login',
+  failureFlash: true
+}))
+
+app.get('/register', checkNotAuthenticated, (req, res) => {
+  res.render('register')
+})
+
+app.post('/register', checkNotAuthenticated, async (req, res) => {
+  try {
+      const hashedPassword = await bcrypt.hash(req.body.password, 10)
+      users.push({
+          id: Date.now().toString(),
+          name: req.body.name,
+          email: req.body.email,
+          password: hashedPassword
+      })
+      res.redirect('/login')
+  } catch {
+      res.redirect('/register')
+  }
+})
+
+app.delete('/logout', (req, res) => {
+  req.logOut()
+  res.redirect('/login')
+})
+
+function checkAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+      return next()
+  }
+
+  res.redirect('/login')
+}
+
+function checkNotAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+      return res.redirect('/')
+  }
+  next()
+}
+
+app.listen(3000)
