@@ -1,6 +1,7 @@
 // Get references to page elements
-var $exampleText = $("#example-text");
-var $exampleDescription = $("#example-description");
+var $actName = $("#actName");
+var $actTag = $("actTag");
+var $actDescription = $("#actdescription");
 var $submitBtn = $("#submit");
 var $exampleList = $("#example-list");
 
@@ -64,22 +65,23 @@ var refreshExamples = function() {
 var handleFormSubmit = function(event) {
   event.preventDefault();
 
-  var example = {
-    text: $exampleText.val().trim(),
-    description: $exampleDescription.val().trim()
+  var activity = {
+    actName: $actName.val().trim(),
+    actDescription: $actDescription.val().trim(),
+    actTag: $actTag.val().trim()
   };
 
-  if (!(example.text && example.description)) {
-    alert("You must enter an example text and description!");
+  if (!(activity.actName && activity.actTag)) {
+    alert("You must enter an activity name and description!");
     return;
   }
 
-  API.saveExample(example).then(function() {
+  API.saveExample(activity).then(function() {
     refreshExamples();
   });
 
-  $exampleText.val("");
-  $exampleDescription.val("");
+  $actName.val("");
+  $actDescription.val("");
 };
 
 // handleDeleteBtnClick is called when an example's delete button is clicked

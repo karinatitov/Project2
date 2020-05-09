@@ -1,9 +1,10 @@
 {
   "development": {
     "username": "root",
-    "password": "null",
-    "database": "exampledb",
+    "password": "bluv2010",
+    "database": "project2_DB",
     "host": "localhost",
+    "port": 3306,
     "dialect": "mysql"
   },
   "test": {

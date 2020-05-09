@@ -1,24 +1,45 @@
 {
-  "name": "project-2",
+  "name": "example",
   "version": "1.0.0",
-  "description": "Project 2 Starter",
+  "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+<<<<<<< HEAD
+    "devStart": "nodemon server.js",
     "lint": "eslint --quiet .",
     "fix": "eslint --fix .",
     "test": "npm run lint && cross-env NODE_ENV=test mocha -u tdd --reporter spec --exit"
+=======
+    "devStart": "nodemon server.js"
+>>>>>>> 777026b49b260ce5140fb7e8b00cae0d9bc8b54e
   },
+  "author": "",
   "license": "ISC",
   "dependencies": {
+<<<<<<< HEAD
     "dotenv": "^8.0.0",
     "express": "^4.17.0",
     "express-handlebars": "^3.1.0",
     "mysql2": "^1.6.5",
     "nodemon": "^2.0.3",
-    "sequelize": "^5.8.6"
+    "sequelize": "^5.8.6",
+    "bcrypt": "^4.0.1",
+    "express-flash": "0.0.2",
+    "express-session": "^1.17.1",
+=======
+    "bcrypt": "^4.0.1",
+    "express": "^4.17.1",
+    "express-flash": "0.0.2",
+    "express-handlebars": "^4.0.4",
+    "express-session": "^1.17.1",
+    "handlebars": "^4.7.6",
+>>>>>>> 777026b49b260ce5140fb7e8b00cae0d9bc8b54e
+    "method-override": "^3.0.0",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0"
   },
   "devDependencies": {
+<<<<<<< HEAD
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "cross-env": "^5.2.0",
@@ -26,7 +47,9 @@
     "eslint-config-prettier": "^4.3.0",
     "eslint-plugin-prettier": "^3.1.0",
     "mocha": "^6.1.4",
-    "prettier": "^1.17.1"
+    "prettier": "^1.17.1",
+    "dotenv": "^8.2.0",
+    "nodemon": "^2.0.3"
   },
   "directories": {
     "test": "test"
@@ -40,4 +63,9 @@
     "url": "https://github.com/KarinaTitov/Project2/issues"
   },
   "homepage": "https://github.com/KarinaTitov/Project2#readme"
+=======
+    "dotenv": "^8.2.0",
+    "nodemon": "^2.0.3"
+  }
+>>>>>>> 777026b49b260ce5140fb7e8b00cae0d9bc8b54e
 }
