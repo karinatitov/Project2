@@ -1,7 +1,7 @@
 module.exports = function(sequelize, DataTypes) {
   var Login = sequelize.define("Login", {
     Name: {
-      type: Datatypes.String,
+      type: DataTypes.STRING,
       allowNull: false,
       validate: {
         len: [1]
@@ -15,7 +15,7 @@ module.exports = function(sequelize, DataTypes) {
         len: [1]
       }
     },
-    completed: DataTypes.Boolean
+    completed: DataTypes.BOOLEAN
   });
   return Login;
 };

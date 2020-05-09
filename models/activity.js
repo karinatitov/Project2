@@ -1,7 +1,7 @@
 module.exports = function(sequelize, DataTypes) {
   var Activity = sequelize.define("Activity", {
     actName: {
-      type: Datatypes.String,
+      type: DataTypes.STRING,
       allowNull: false,
       validate: {
         len: [1]
@@ -17,10 +17,10 @@ module.exports = function(sequelize, DataTypes) {
     },
 
     actDescription: {
-      type: DataTypes.String
+      type: DataTypes.STRING
     },
 
-    completed: DataTypes.Boolean
+    completed: DataTypes.BOOLEAN
   });
   return Activity;
 };
