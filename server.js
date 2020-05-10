@@ -58,6 +58,10 @@ app.get('/login', checkNotAuthenticated, (req, res) => {
   res.render('login');
 });
 
+app.get('/guest', (req, res) => {
+  res.render('index');
+})
+
 app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/login',
