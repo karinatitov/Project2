@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "root",
-    "password": "bluv2010",
-    "database": "project2_DB",
+    "password": "43Aruzap*",
+    "database": "project2_db",
     "host": "localhost",
     "port": 3306,
     "dialect": "mysql"

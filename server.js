@@ -10,6 +10,7 @@ const exphbs = require('express-handlebars');
 const flash = require('express-flash')
 const session = require('express-session')
 const methodOverride = require('method-override')
+const db = require("./models")
 
 const initializePassport = require('./passport-config')
 initializePassport(
@@ -54,7 +55,7 @@ app.get('/', checkAuthenticated, (req, res) => {
   });
 });
 
-app.get('/login', checkNotAuthenticated, (req, res) => {
+app.get('/login', (req, res) => {
   res.render('login');
 });
 
@@ -62,28 +63,36 @@ app.get('/guest', (req, res) => {
   res.render('index');
 })
 
-app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
+app.post('/login', passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/login',
   failureFlash: true
 }))
 
-app.get('/register', checkNotAuthenticated, (req, res) => {
+app.get('/register', (req, res) => {
   res.render('register')
 })
 
-app.post('/register', checkNotAuthenticated, async (req, res) => {
+app.post('/register', async (req, res) => {
   try {
       const hashedPassword = await bcrypt.hash(req.body.password, 10)
-      users.push({
-          id: Date.now().toString(),
-          name: req.body.name,
+      db.User.create({
+          first_name: req.body.fname,
+          last_name: req.body.lname,
           email: req.body.email,
           password: hashedPassword
+      }).then(function(result) {
+
+        // console.log(result)
+        res.redirect('/login');
+
       })
-      res.redirect('/login')
-  } catch {
-      res.redirect('/register')
+
+
+      
+  } catch(err) {
+    console.log(err);
+      res.redirect('/register');
   }
 })
 
@@ -93,6 +102,7 @@ app.delete('/logout', (req, res) => {
 })
 
 function checkAuthenticated(req, res, next) {
+  console.log(req.user);
   if (req.isAuthenticated()) {
       return next()
   }
@@ -100,11 +110,6 @@ function checkAuthenticated(req, res, next) {
   res.redirect('/login')
 }
 
-function checkNotAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-      return res.redirect('/')
-  }
-  next()
-}
+
 
 app.listen(3000)
