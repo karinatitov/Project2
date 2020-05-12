@@ -9,7 +9,7 @@
     "fix": "eslint --fix .",
     "test": "npm run lint && cross-env NODE_ENV=test mocha -u tdd --reporter spec --exit"
   },
-  "author": "Karina",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^8.0.0",
@@ -44,6 +44,7 @@
     "type": "git",
     "url": "git+https://github.com/KarinaTitov/Project2.git"
   },
+  "author": "",
   "bugs": {
     "url": "https://github.com/KarinaTitov/Project2/issues"
   },

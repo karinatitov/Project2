@@ -11,6 +11,7 @@ const flash = require('express-flash')
 const session = require('express-session')
 const methodOverride = require('method-override')
 const db = require("./models")
+const PORT = process.env.PORT || 8080;
 
 const initializePassport = require('./passport-config')
 initializePassport(
@@ -23,15 +24,16 @@ const users = []
 app.engine(
   'handlebars',
   exphbs({
-      defaultLayout: 'main'
+    defaultLayout: 'main'
   })
 );
 app.set('view engine', 'handlebars');
 
 app.use(express.static('public'));
 app.use(express.urlencoded({
-  extended: false
+  extended: true
 }));
+app.use(express.json());
 
 app.use(require('express-session')({
   secret: 'keyboard cat',
@@ -51,7 +53,7 @@ app.use(methodOverride('_method'));
 
 app.get('/', checkAuthenticated, (req, res) => {
   res.render('index', {
-      name: req.user.name
+    name: req.user.name
   });
 });
 
@@ -64,6 +66,7 @@ app.get('/guest', (req, res) => {
 })
 
 app.post('/login', passport.authenticate('local', {
+
   successRedirect: '/',
   failureRedirect: '/login',
   failureFlash: true
@@ -75,24 +78,24 @@ app.get('/register', (req, res) => {
 
 app.post('/register', async (req, res) => {
   try {
-      const hashedPassword = await bcrypt.hash(req.body.password, 10)
-      db.User.create({
-          first_name: req.body.fname,
-          last_name: req.body.lname,
-          email: req.body.email,
-          password: hashedPassword
-      }).then(function(result) {
+    const hashedPassword = await bcrypt.hash(req.body.password, 10)
+    db.User.create({
+      first_name: req.body.fname,
+      last_name: req.body.lname,
+      email: req.body.email,
+      password: hashedPassword
+    }).then(function (result) {
 
-        // console.log(result)
-        res.redirect('/login');
+      // console.log(result)
+      res.redirect('/login');
 
-      })
+    })
 
 
-      
-  } catch(err) {
-    console.log(err);
-      res.redirect('/register');
+
+  } catch (err) {
+    // console.log(err);
+    res.redirect('/register');
   }
 })
 
@@ -102,14 +105,19 @@ app.delete('/logout', (req, res) => {
 })
 
 function checkAuthenticated(req, res, next) {
-  console.log(req.user);
+
   if (req.isAuthenticated()) {
-      return next()
+    return next()
   }
 
   res.redirect('/login')
 }
 
 
-
-app.listen(3000)
+db.sequelize.sync({
+  force: true
+}).then(function () {
+  app.listen(PORT, function () {
+    console.log("App listening on PORT " + PORT);
+  });
+});
