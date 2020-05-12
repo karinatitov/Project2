@@ -11,9 +11,7 @@ body {
 .login-form {
   max-width: 500px;
   text-align: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   margin: 20px;
   padding: 20px;
 }
@@ -28,4 +26,3 @@ body {
   margin: 10px;
   padding: 10px;
 }
-/*# sourceMappingURL=style.css.map */

@@ -1,4 +1,4 @@
-<form action="/login" method="POST">
+{{!-- <form action="/login" method="POST">
   <div>
     <label for="email">Email</label>
     <input type="email" id="email" name="email" required>
@@ -7,6 +7,46 @@
     <label for="password">Password</label>
     <input type="password" id="password" name="password" required>
   </div>
-  <button type="submit">Login</button>
+  <button type="submit" name="login">Login</button>
 </form>
 <a href="/register">Register</a>
+<a href="/guest">Continue as guest</a> --}}
+<section class="hero">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <div class="tile is-ancestor">
+        <div class="tile is-vertical is-6">
+          <div class="tile">
+            <div class="tile is-parent">
+              <article class="tile is-child notification">
+                <p class="title">login</p>
+                <div class="field">
+                <form action="/login" method="POST">
+                  <p class="control has-icons-left has-icons-right">
+                    <input class="input is-rounded" type="email" placeholder="example123@email.com" id="email" name="email">
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-envelope"></i>
+                    </span>
+                    <span class="icon is-small is-right">
+                      <i class="fas fa-check"></i>
+                    </span>
+                  </p>
+                </div>
+                <div class="field">
+                  <p class="control has-icons-left">
+                    <input class="input is-rounded" type="password" placeholder="Password">
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-lock"></i>
+                    </span>
+                  </p>
+                </div>
+                <button class="button is-medium is-outlined" type="submit" name="login">Login</button>
+                <button class="button is-medium is-outlined"><a href="/register">Register</a></button>
+                <button class="button is-medium is-outlined"><a href="/guest">Continue as guest</a></button>
+              </article>
+              </form>
+              
+            </div>
+          </div>
+</section>
+
