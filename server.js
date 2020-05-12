@@ -12,15 +12,22 @@ const session = require('express-session')
 const methodOverride = require('method-override')
 const db = require("./models")
 const PORT = process.env.PORT || 8080;
-
 const initializePassport = require('./passport-config')
 initializePassport(
   passport,
-  email => users.find(user => user.email === email),
-  id => users.find(user => user.id === id)
-)
+  email => db.User.findAll({
+    where: {
+      email: email
+    }
+  }),
+  id => db.User.findAll({
+    where: {
+      id: id
+    }
+  })
+);
 
-const users = []
+
 app.engine(
   'handlebars',
   exphbs({
@@ -37,7 +44,7 @@ app.use(express.json());
 
 // Routes
 // =============================================================
-require("./routes/hbs-routes.js")(app);
+// require("./routes/hbs-routes.js")(app);
 require("./routes/category-api-routes.js")(app);
 require("./routes/act-api-routes.js")(app);
 
