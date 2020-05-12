@@ -1,93 +1,119 @@
-<!-- As a heading -->
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a class="navbar-item" href="https://bulma.io">
-      <img src="/public/styles/img/logo.png" width="112" height="28">
-    </a>
-    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-
-  <div id="navbarBasicExample" class="navbar-menu">
-    <div class="navbar-start">
-      <a class="navbar-item">
-        Home
-      </a>
-
-      <a class="navbar-item">
-        Documentation
-      </a>
-    </div>
-
-    <div class="navbar-end">
-      <div class="navbar-item">
-        <div class="buttons">
-          <a class="button is-primary">
-            <strong>Sign up</strong>
-          </a>
-          <a class="button is-light">
-            Log in
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
 </nav>
 <div class="tile is-ancestor">
   <div class="tile is-4 is-vertical is-parent">
-     <div class="tile is-child box">
-      <p class="title">Activity Categorys</p>
     <div class="tile is-child box">
-      <p class="title">Lazy</p>
-      <p class="subtitle">Lowkey simple activities to do at home with little to no effort</p>
-    </div>
-    <div class="tile is-child box">
-      <p class="title">Use your Brain
-      <p class="subtitle">Activities meant to be stimulating, for your mind.</p>
-    </div>
-    <div class="tile is-child box">
-      <p class="title">Use your energy</p>
-      <p class="subtitle">Activities you can do at home, that may make you break a sweat</p>
-    </div>
+      <h2 class="title is-2"> Category's</h2>
+      <div class="tile is-child box">
+        <p class="title">Be Lazy</p>
+        <p class="subtitle">Lowkey simple activities to do at home with little to no effort</p>
+        <button class="button is-large is-info is-light">Lazy-<i>it!</i></button>
+
+      </div>
+      <div class="tile is-child box">
+        <p class="title">Use your Brain
+          <p class="subtitle">Activities meant to be stimulating, for your mind.</p>
+          <button class="button is-large is-info is-light">Brain-<i>it!</i></button>
+      </div>
+      <div class="tile is-child box">
+        <p class="title">Use your energy</p>
+        <p class="subtitle">Activities you can do at home, that may make you break a sweat</p>
+        <button class="button is-large is-info is-light">Energize<i>it!</i></button>
+      </div>
     </div>
   </div>
-  <div class="tile is-parent">
+  <div class="tile is-4 is-parent">
     <div class="tile is-child box">
-      <p class="title">Three</p>
+      <h2 class="title is-2">Activity Button</h1>
+        <h4 class="title is-4">Click the button to get a random activity in any kind of category!</h4>
+        <button class="button is-large is-info is-light">Verb-<i>it!</i></button>
+        <br><br>
+
+        <figure class="image is-image is-4by5">
+          <img src="/../assests/img/idea.jpg">
+        </figure>
+    </div>
+  </div>
+  <div class="tile is-4 is-parent">
+    <div class="tile is-child box">
+      <h2 class="title is-2"> Give us some ideas!</h2>
+      <h4 class="title is-4"> Give us some ideas of your own so we can give more options for other users, or so you can
+        add them to your to do list!</h4>
+      <div class="field has-addons">
+        <div class="control is-expanded">
+          <div class="select is-fullwidth">
+            <select name="country">
+              <option value="">Choose a Category</option>
+              <option value="Bolivia">Lazy</option>
+              <option value="Brazil">Brain Exercies</option>
+              <option value="Chile">Outdoor</option>
+            </select>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="field">
+        <label class="label">Description of Activity</label>
+        <div class="control">
+          <textarea class="textarea" placeholder="Textarea"></textarea>
+        </div>
+      </div>
+      <div class="control">
+        <button type="submit" class="button is-normal is-info is-light">Choose</button>
+      </div>
+      <br>
+      <figure class="image is-image is-3by2">
+        <img src="/../assests/img/photo-1504805572947-34fad45aed93.jpeg">
+      </figure>
     </div>
   </div>
 </div>
 <div class="tile is-ancestor">
-  <div class="tile is-parent is-12">
+  <div class="tile is-parent is-6">
     <article class="tile is-child box">
-      <p class="title">To do list</p>
-      <p class="subtitle">These are all the activites that you have saved, but have not completed.</p>
-    <div class="tile is-child box">
-      <p class="title">Task 1</p>
-      <p class="subtitle">Description</p>
-    </div>
-    <div class="tile is-child box">
-      <p class="title">Task 2</p>
-      <p class="subtitle">Description</p>
-    </div>
-    <div class="tile is-child box">
-      <p class="title">Task 3</p>
-      <p class="subtitle">Description</p>
-    </div>
+      <h2 class="title is-2"> To Do List</h2>
+      <p class="subtitle 3">These are all the activites that you have saved, but have not completed.</p>
+      <div class="tile is-child box">
+        <p class="title"><i class="fas fa-check-square"></i>  Task 1</p>
+        <p class="subtitle">Description</p>
+      </div>
+      <div class="tile is-child box">
+        <p class="title"><i class="fas fa-check-square"></i>  Task 2</p>
+        <p class="subtitle">Description</p>
+      </div>
+      <div class="tile is-child box">
+        <p class="title"><i class="fas fa-check-square"></i>  Task 3</p>
+        <p class="subtitle">Description</p>
+      </div>
+    </article>
+  </div>
+  <div class="tile is-parent is-6">
+    <article class="tile is-child box">
+      <h2 class="title is-2"> Contact Us</h2>
+      <div class="control has-icons-left has-icons-right">
+        
+        <input class="input" type="text" placeholder="Your Name">
+        <span class="icon is-small is-left">
+          <i class="fas fa-phone"></i>
+        </span>
+        <span class="icon is-small is-right">
+          <i class="fas fa-check"></i>
+        </span>
+      </div>
     </article>
   </div>
 </div>
 <footer class="footer">
   <div class="content has-text-centered">
     <p>
-      <strong>#Verb-<i>its</i></strong> by <a href="https://github.com/KarinaTitov">Karina Titov</a> <a href="https://github.com/KarinaTitov">Karina Titov</a> <a href="https://github.com/KarinaTitov">Karina Titov</a> <a href="https://github.com/KarinaTitov">Karina Titov</a>
+      <h3>#Verb-<i>its</i></h3> by <a href="https://github.com/KarinaTitov">Karina Titov</a> | <a
+        href="https://github.com/Brandon20202">Brandon Taylor</a> | <a
+        href="https://github.com/LindseyLowther44">Lindsey Lowther</a> |
+      <a href="https://github.com/robertalanis">Robert Alanis</a>
     </p>
   </div>
 </footer>
-Variables
+
 
 
 
@@ -99,5 +125,5 @@ Variables
 </nav>
 <div class="position-static">...</div> --}}
 
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  {{!-- <script src="/js/index.js"></script> --}}
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+{{!-- <script src="/js/index.js"></script> --}}
