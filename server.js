@@ -20,6 +20,7 @@ initializePassport(
       email: email
     }
   }),
+
   id => db.User.findAll({
     where: {
       id: id
@@ -78,11 +79,11 @@ app.get('/guest', (req, res) => {
   res.render('index');
 })
 
-app.post('/login', passport.authenticate('local', {
+app.post('/login', checkAuthenticated, passport.authenticate('local', {
 
   successRedirect: '/',
-  failureRedirect: '/login',
-  failureFlash: true
+  // failureRedirect: '/login',
+  failureFlash: false
 }))
 
 app.get('/register', (req, res) => {
@@ -90,11 +91,13 @@ app.get('/register', (req, res) => {
 })
 
 app.post('/register', async (req, res) => {
+  console.log(req.body)
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10)
+    
     db.User.create({
-      first_name: req.body.fname,
-      last_name: req.body.lname,
+      first_name: req.body.first_name,
+      last_name: req.body.last_name,
       email: req.body.email,
       password: hashedPassword
     }).then(function (result) {
