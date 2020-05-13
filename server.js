@@ -45,7 +45,7 @@ app.use(express.json());
 
 // Routes
 // =============================================================
-// require("./routes/hbs-routes.js")(app);
+ require("./routes/hbs-routes.js")(app);
 require("./routes/category-api-routes.js")(app);
 require("./routes/act-api-routes.js")(app);
 
@@ -66,9 +66,8 @@ app.use(passport.session());
 app.use(methodOverride('_method'));
 
 app.get('/', checkAuthenticated, (req, res) => {
-  res.render('index', {
-    name: req.user.name
-  });
+
+  res.render('index');
 });
 
 app.get('/login', (req, res) => {
@@ -79,22 +78,24 @@ app.get('/guest', (req, res) => {
   res.render('index');
 })
 
-app.post('/login', checkAuthenticated, passport.authenticate('local', {
-
+app.post('/login', passport.authenticate('local', {
   successRedirect: '/',
-  // failureRedirect: '/login',
-  failureFlash: false
+   failureRedirect: '/login',
+  failureFlash: true
 }))
+
+
+
 
 app.get('/register', (req, res) => {
   res.render('register')
 })
 
 app.post('/register', async (req, res) => {
-  console.log(req.body)
+
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10)
-    
+
     db.User.create({
       first_name: req.body.first_name,
       last_name: req.body.last_name,
@@ -131,7 +132,7 @@ function checkAuthenticated(req, res, next) {
 
 
 db.sequelize.sync({
-  force: true
+
 }).then(function () {
   app.listen(PORT, function () {
     console.log("App listening on PORT " + PORT);
