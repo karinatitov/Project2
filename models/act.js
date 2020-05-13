@@ -9,6 +9,12 @@ module.exports = function (sequelize, DataTypes) {
             }
         },
 
+        description: {
+            type: DataTypes.TEXT,
+            allowNull: false,
+            len: [1]
+          },
+
         category: {
             type: DataTypes.STRING,
             defaultValue: "Random"
