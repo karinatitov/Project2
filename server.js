@@ -12,7 +12,7 @@ const session = require('express-session')
 const methodOverride = require('method-override')
 const db = require("./models")
 const PORT = process.env.PORT || 8080;
-const initializePassport = require('./passport-config')
+const initializePassport = require('./public/js/passport-config')
 initializePassport(
   passport,
   email => db.User.findAll({
@@ -45,7 +45,7 @@ app.use(express.json());
 
 // Routes
 // =============================================================
- require("./routes/hbs-routes.js")(app);
+
 require("./routes/category-api-routes.js")(app);
 require("./routes/act-api-routes.js")(app);
 
