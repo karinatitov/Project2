@@ -45,12 +45,8 @@ app.use(express.json());
 
 // Routes
 // =============================================================
-<<<<<<< HEAD
-require("./routes/category-api-routes.js")(app);
-=======
 
 
->>>>>>> d736e9df11d4d328d5589ec4fd4b54396d2c4b86
 require("./routes/act-api-routes.js")(app);
 
 app.use(require('express-session')({
