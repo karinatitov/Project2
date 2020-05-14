@@ -14,17 +14,18 @@
       <div class="tile is-child box">
         <p class="title">Be Lazy</p>
         <p class="subtitle">Lowkey simple activities to do at home with little to no effort</p>
-        <button class="button is-large is-danger is-light">Lazy-<i>it!</i></button>
+        <button class="button is-large is-info is-light" id="lazy">Lazy-<i>it!</i></button>
+
       </div>
       <div class="tile is-child box">
         <p class="title">Use your Brain
           <p class="subtitle">Activities meant to be stimulating, for your mind.</p>
-          <button class="button is-large is-danger is-light">Brain-<i>it!</i></button>
+          <button class="button is-large is-info is-light" id="brain">Brain-<i>it!</i></button>
       </div>
       <div class="tile is-child box">
         <p class="title">Use your energy</p>
         <p class="subtitle">Activities you can do at home, that may make you break a sweat</p>
-        <button class="button is-large is-danger is-light">Energize<i>it!</i></button>
+        <button class="button is-large is-info is-light" id="energize">Energize<i>it!</i></button>
       </div>
     </div>
   </div>
@@ -32,7 +33,7 @@
     <div class="tile is-child box">
       <h2 class="title is-2">Activity Button</h1>
         <h4 class="title is-4">Click the button to get a random activity in any kind of category!</h4>
-        <button class="button is-large is-danger is-light">Verb-<i>it!</i></button>
+        <button class="button is-large is-info is-light">Verb-<i>it!</i></button>
         <br><br>
         <figure class="image is-image is-4by5">
           <img src="/../assests/img/idea.jpg">
@@ -47,15 +48,15 @@
       <div class="field has-addons">
         <div class="control is-expanded">
           <div class="select is-fullwidth">
-            <select name="country">
+            <select name="country" id="Category">
               <option value="">Choose a Category</option>
-              <option value="Bolivia">Lazy</option>
-              <option value="Brazil">Brain Exercies</option>
-              <option value="Chile">Outdoor</option>
+              <option value="Lazy">Lazy</option>
+              <option value="Brain">Brain Exercies</option>
+              <option value="Outdoor">Outdoor</option>
             </select>
           </div>
         </div>
-        <input class="input" type="text" placeholder="Name of Activity">
+        <input class="input" type="text" id="actName" placeholder="Name of Activity">
         <span class="icon is-normal is-left">
           <i class="fal fa-text"></i>
         </span>
@@ -63,11 +64,11 @@
       <div class="field">
         <label class="label">Description of Activity</label>
         <div class="control">
-          <textarea class="textarea" placeholder="Textarea"></textarea>
+          <textarea class="textarea" id="actDescription" placeholder="Textarea"></textarea>
         </div>
       </div>
       <div class="control">
-        <button type="submit" class="button is-normal is-danger is-light">Add Activity</button>
+        <button type="submit" id="choose" class="button is-normal is-info is-light">Choose</button>
       </div>
       <br>
       <figure class="image is-image is-3by2">
@@ -136,3 +137,12 @@
 </footer>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="/js/app.js" type="text/javascript"></script>
+
+
+
+
+
+
+
+
