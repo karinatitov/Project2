@@ -3,10 +3,11 @@ var actName = $("#actName");
 var category = $("#Category");
 var Description = $("#actDescription");
 var submitBtn = $("#choose");
-var exampleList = $("#example-list");
-var lazyBtn = $("#lazy");
-var brainBtn = $("#brain");
-var energizeBtn = $("#energize");
+var actList = $("#activityList");
+var btn = $(".buttonAct");
+var categoryToShow = btn.val();
+
+var activityCategory = $("#activityCategory");
 // The API object contains methods for each kind of request we'll make
 var API = {
     saveActivity: function (activity) {
@@ -21,40 +22,117 @@ var API = {
     },
     getActivity: function () {
         return $.ajax({
-            url: "api/activities",
+            url: "api/activities/",
+            type: "GET"
+        });
+    },
+    getActivityByCategory: function (categoryToShow) {
+
+        return $.ajax({
+            url: "api/activities/" + categoryToShow,
             type: "GET"
         });
     },
     deleteActivity: function (id) {
         return $.ajax({
             url: "api/activities/:" + id,
-            type: "DELETE" 
+            type: "DELETE"
         });
     }
 };
 // refreshExamples gets new examples from the db and repopulates the list
-var refreshActivity = function () {
-    API.getActivity().then(function (data) {
-        var activity = data.map(function (activity) {
-            var a = $("<a>")
-                .text(activity.category)
-                .attr("href", "/activity/" + activity.id);
-            var li = $("<li>")
-                .attr({
-                    class: "list-group-item",
-                    "data-id": activity.id
-                })
-                .append(a);
-            var button = $("<button>")
-                .addClass("btn btn-danger float-right delete")
-                .text("ｘ");
-            li.append(button);
-            return li;
-        });
-        exampleList.empty();
-        exampleList.append(activity);
-    });
+var refreshActivity = function (event) {
+    event.preventDefault();
+
+
+
+    API.getActivityByCategory(event.currentTarget.value).then(function (data) {
+        console.log(data);
+        actList.empty();
+        for (var item of data) {
+
+            var newElement = $("<div>")
+                .attr("class", "todoAct")
+
+
+            var listedActName = $("<h4>")
+                .text(item.act_name);
+
+            var listedActDesc = $("<p>")
+                .text(item.description);
+
+            let button = $('<button>').text('Choose Me').addClass('chooseMe').attr('data-id', item.id).attr('data-todo', item.todo);
+
+            newElement.append(listedActName, listedActDesc, button);
+
+            actList.append(newElement);
+        }
+
+    })
+
+
+
 };
+
+$(document).on('click', '.chooseMe',  function () {
+    //allows user to update the name of any burger by clicking the 
+    var burger = $(this).parent();
+    var id = $(this).data('id');
+    var devour = {
+        devoured: $(this).data('devour')
+    };
+    var name = $(this).prev().text();
+
+    if (devour.devoured === false || devour.devoured === 0 || devour.devoured === '0') {
+        $.ajax(`/api/burgers/${id}`, {
+            type: 'PUT',
+            data: devour
+        }).then(function (burgerUpdate) {
+            if (burgerUpdate) {
+                burger.remove();
+                var li = $('<li>');
+                var p = $('<p>').text(name);
+                var button = $('<button>').text('Destroy').addClass('updateMe').attr('data-id', id).attr('data-devour', 1);
+
+                $(li).append(p, button);
+                $('#toDelete').prepend(li);
+            }
+
+        })
+    } else {
+        $.ajax(`/api/burgers/${id}`, {
+            type: 'DELETE'
+        }).then(function (burgerDelete) {
+
+            if (burgerDelete) {
+                burger.remove();
+            }
+
+        })
+    }
+    location.reload();
+})
+
+
+
+// var activity = data.map(function (activity) {
+//     var a = $("<h6>")
+//         .text(activity.act_name)
+//         .attr("href", "/activities/" + activity.category);
+//     var p = $("<p>")
+//     .text(activity.description)
+//         .attr({
+//             class: "list-group-item",
+//             "data-id": activity.id
+//         })
+//         .append(a);
+//     var button = $("<button>")
+//         .addClass("btn btn-danger float-right doIt")
+//         .text("+");
+//     li.append(button);
+//     return li;
+// });
+
 // handleFormSubmit is called whenever we submit a new example
 // Save the new example to the db and refresh the list
 var handleFormSubmit = function (event) {
@@ -87,7 +165,5 @@ var handleDeleteBtnClick = function () {
 };
 // Add event listeners to the submit and delete buttons
 submitBtn.on("click", handleFormSubmit);
-exampleList.on("click", ".delete", handleDeleteBtnClick);
-lazyBtn.on("click", refreshActivity);
-brainBtn.on("click", refreshActivity);
-energizeBtn.on("click", refreshActivity);
+actList.on("click", ".delete", handleDeleteBtnClick);
+btn.on("click", refreshActivity);
