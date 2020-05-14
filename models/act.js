@@ -3,7 +3,7 @@ module.exports = function (sequelize, DataTypes) {
 
         act_name: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
             validate: {
                 len: [1]
             }
