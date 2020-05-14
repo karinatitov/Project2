@@ -3,10 +3,10 @@ var actName = $("#actName");
 var category = $("#Category");
 var Description = $("#actDescription");
 var submitBtn = $("#choose");
-var exampleList = $("#example-list");
-var lazyBtn = $("#lazy");
-var brainBtn = $("#brain");
-var energizeBtn = $("#energize");
+var actList = $("#activityList");
+var btn = $(".buttonAct");
+
+var activityCategory = $("#activityCategory");
 // The API object contains methods for each kind of request we'll make
 var API = {
     saveActivity: function (activity) {
@@ -21,40 +21,70 @@ var API = {
     },
     getActivity: function () {
         return $.ajax({
-            url: "api/activities",
+            url: "api/activities/",
+            type: "GET"
+        });
+    },
+    getActivityByCategory: function (category) {
+        var category = btn.val();
+        return $.ajax({
+            url: "api/activities/" + category,
             type: "GET"
         });
     },
     deleteActivity: function (id) {
         return $.ajax({
             url: "api/activities/:" + id,
-            type: "DELETE" 
+            type: "DELETE"
         });
     }
 };
 // refreshExamples gets new examples from the db and repopulates the list
 var refreshActivity = function () {
-    API.getActivity().then(function (data) {
-        var activity = data.map(function (activity) {
-            var a = $("<a>")
-                .text(activity.category)
-                .attr("href", "/activity/" + activity.id);
-            var li = $("<li>")
-                .attr({
-                    class: "list-group-item",
-                    "data-id": activity.id
-                })
-                .append(a);
-            var button = $("<button>")
-                .addClass("btn btn-danger float-right delete")
-                .text("ｘ");
-            li.append(button);
-            return li;
-        });
-        exampleList.empty();
-        exampleList.append(activity);
-    });
+
+    API.getActivityByCategory().then(function (data) {
+        for (item in data) {
+            var newElement = $("<div>")
+                .attr("class", "todoAct")
+                .parent()
+
+            var h = $("<h6>")
+                .text(item.act_name);
+
+            var p = $("<p>")
+                .text(item.description);
+
+            newElement.append(h, p);
+            actList.empty();
+            actList.append(newElement);
+        }
+
+    })
+
+
+
 };
+
+
+
+// var activity = data.map(function (activity) {
+//     var a = $("<h6>")
+//         .text(activity.act_name)
+//         .attr("href", "/activities/" + activity.category);
+//     var p = $("<p>")
+//     .text(activity.description)
+//         .attr({
+//             class: "list-group-item",
+//             "data-id": activity.id
+//         })
+//         .append(a);
+//     var button = $("<button>")
+//         .addClass("btn btn-danger float-right doIt")
+//         .text("+");
+//     li.append(button);
+//     return li;
+// });
+
 // handleFormSubmit is called whenever we submit a new example
 // Save the new example to the db and refresh the list
 var handleFormSubmit = function (event) {
@@ -87,7 +117,5 @@ var handleDeleteBtnClick = function () {
 };
 // Add event listeners to the submit and delete buttons
 submitBtn.on("click", handleFormSubmit);
-exampleList.on("click", ".delete", handleDeleteBtnClick);
-lazyBtn.on("click", refreshActivity);
-brainBtn.on("click", refreshActivity);
-energizeBtn.on("click", refreshActivity);
+actList.on("click", ".delete", handleDeleteBtnClick);
+btn.on("click", refreshActivity);
