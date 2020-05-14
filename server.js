@@ -46,7 +46,7 @@ app.use(express.json());
 // Routes
 // =============================================================
 
-require("./routes/category-api-routes.js")(app);
+
 require("./routes/act-api-routes.js")(app);
 
 app.use(require('express-session')({
