@@ -45,7 +45,7 @@ app.use(express.json());
 
 // Routes
 // =============================================================
- require("./routes/hbs-routes.js")(app);
+// require("./routes/hbs-routes.js")(app);
 require("./routes/category-api-routes.js")(app);
 require("./routes/act-api-routes.js")(app);
 
