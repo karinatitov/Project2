@@ -1,4 +1,4 @@
-<nav class="navbar navbar-light bg-light">
+{{!-- <nav class="navbar navbar-light bg-light">
   <span class="navbar-brand mb-0 h1"><b>#</b>Verb-<i>its</i></span>
   <a class="navbar-brand" href="/index">Go back ></a>
 </nav>
@@ -26,4 +26,70 @@
     </form>
     <a href="/login">Login</a>
   </div>
+</div> --}}
+{{!-- <div class="container has-text-centered has-text-light"  >
+<div class="tile is-ancestor" id="registration">
+  <div class="tile is-vertical is-6">
+    <div class="tile">
+      <div class="tile is-parent">
+        <div class="tile is-child box">
+          <p class="title ">Login</p>
+          <form action="/register" method="POST"></form>
+          <div class="control">
+            <input class="input is-rounded" type="text" name="first_name" placeholder="First Name">
+          </div>
+          <div class="control">
+            <input class="input is-rounded" type="text" name="last_name" placeholder="Last Name">
+          </div>
+          <div>
+            <button class="button is-medium is-outlined"><a href="/guest">Register!</a></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+</div> --}}
+
+<section class="hero is-fullheight">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <div class="column is-6 is-offset-3">
+        <h1 class="title has-text-white" style="font-family: 'Bungee Outline', 32
+        cursive; text-align:center;">
+          Verb-its!
+        </h1>
+        <hr class="login-hr">
+        <p class="subtitle has-text-white">Please register to proceed.</p>
+        <div class="box">
+          <form action="/register" method="POST">
+            <div class="field">
+              <div class="control">
+                <input class="input is-large" type="text" name="first_name" placeholder="First Name" autofocus="">
+              </div>
+            </div>
+            <div class="field">
+              <div class="control">
+                <input class="input is-large" type="text" name="last_name" placeholder="Last Name" autofocus="">
+              </div>
+            </div>
+            <div class="field">
+              <div class="control">
+                <input class="input is-large" type="email" name="email" placeholder="example123@email.com" autofocus="">
+              </div>
+            </div>
+            <div class="field">
+              <div class="control">
+                <input class="input is-large" type="password" name="password" placeholder="Your Password">
+              </div>
+            </div>
+            <button type="submit" class="button button is-link is-light is-large is-fullwidth">Register </button>
+          </form>
+        </div>
+        <p class="has-text-grey">
+          <a href="/login">Go Back!</a> &nbsp;·&nbsp;>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

@@ -12,7 +12,7 @@ const session = require('express-session')
 const methodOverride = require('method-override')
 const db = require("./models")
 const PORT = process.env.PORT || 8080;
-const initializePassport = require('./public/js/passport-config')
+const initializePassport = require('./passport-config')
 initializePassport(
   passport,
   email => db.User.findAll({
@@ -45,7 +45,6 @@ app.use(express.json());
 
 // Routes
 // =============================================================
-
 require("./routes/category-api-routes.js")(app);
 require("./routes/act-api-routes.js")(app);
 
@@ -80,7 +79,7 @@ app.get('/guest', (req, res) => {
 
 app.post('/login', passport.authenticate('local', {
   successRedirect: '/',
-   failureRedirect: '/login',
+  failureRedirect: '/login',
   failureFlash: true
 }))
 
@@ -103,7 +102,7 @@ app.post('/register', async (req, res) => {
       password: hashedPassword
     }).then(function (result) {
 
-      // console.log(result)
+
       res.redirect('/login');
 
     })

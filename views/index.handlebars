@@ -1,4 +1,12 @@
-</nav>
+<section class="hero">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title has-text-danger cursive; text-align:center;" style="font-family: 'Bungee Outline', cursive;">
+        Verb-its!
+      </h1>
+    </div>
+  </div>
+</section>
 <div class="tile is-ancestor">
   <div class="tile is-4 is-vertical is-parent">
     <div class="tile is-child box">
@@ -27,7 +35,6 @@
         <h4 class="title is-4">Click the button to get a random activity in any kind of category!</h4>
         <button class="button is-large is-info is-light" >Verb-<i>it!</i></button>
         <br><br>
-
         <figure class="image is-image is-4by5">
           <img src="/../assests/img/idea.jpg">
         </figure>
@@ -49,8 +56,10 @@
             </select>
           </div>
         </div>
-
-
+        <input class="input" type="text" id="actName" placeholder="Name of Activity">
+        <span class="icon is-normal is-left">
+          <i class="fal fa-text"></i>
+        </span>
       </div>
       <div class="field">
         <label class="label">Description of Activity</label>
@@ -73,25 +82,24 @@
     <article class="tile is-child box">
       <h2 class="title is-2"> To Do List</h2>
       <p class="subtitle 3">These are all the activites that you have saved, but have not completed.</p>
-      <div class="tile is-child box is-sr-only">
-        <p class="title"><i class="fas fa-check-square"></i>  Task 1</p>
+      <div class="tile is-child box">
+        <p class="title"><i class="fas fa-check-square"></i> Task 1</p>
         <p class="subtitle">Description</p>
       </div>
-      <div class="tile is-child box is-sr-only">
-        <p class="title"><i class="fas fa-check-square"></i>  Task 2</p>
+      <div class="tile is-child box">
+        <p class="title"><i class="fas fa-check-square"></i> Task 2</p>
         <p class="subtitle">Description</p>
       </div>
-      <div class="tile is-child box is-sr-only">
-        <p class="title"><i class="fas fa-check-square"></i>  Task 3</p>
+      <div class="tile is-child box">
+        <p class="title"><i class="fas fa-check-square"></i> Task 3</p>
         <p class="subtitle">Description</p>
       </div>
     </article>
   </div>
   <div class="tile is-parent is-6">
     <article class="tile is-child box">
-      <h2 class="title is-2"> Contact Us</h2>
+      <h2 class="title is-3"> Contact Us</h2>
       <div class="control has-icons-left has-icons-right">
-        
         <input class="input" type="text" placeholder="Your Name">
         <span class="icon is-normal is-left">
           <i class="fal fa-text"></i>
@@ -99,6 +107,20 @@
         <span class="icon is-small is-right">
           <i class="fas fa-check"></i>
         </span>
+      </div>
+      <br>
+      <div class="control has-icons-left has-icons-right">
+        <input class="input" type="text" placeholder="Email">
+        <span class="icon is-normal is-left">
+          <i class="fal fa-text"></i>
+        </span>
+        <br><br>
+        <div class="field">
+          <label class="label">Description of Activity</label>
+          <div class="control">
+            <textarea class="textarea" placeholder="Textarea"></textarea>
+          </div>
+        </div>
       </div>
     </article>
   </div>
@@ -113,17 +135,6 @@
     </p>
   </div>
 </footer>
-
-
-
-
-
-
-{{!-- <nav class="navbar navbar-light bg-light">
-  <span class="navbar-brand mb-0 h1"><b>#</b>Verb-<i>its</i></span>
-  <a class="navbar-brand" href="/register">Become a Verb Member</a>
-</nav>
-<div class="position-static">...</div> --}}
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/public/js/app.js"></script>
