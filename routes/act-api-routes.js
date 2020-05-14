@@ -26,7 +26,11 @@ module.exports = function (app) {
         category: req.params.category
       }
     }).then(function (dbActivities) {
+
+      console.log(dbActivities);
       res.json(dbActivities);
+
+
     });
   });
 

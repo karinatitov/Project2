@@ -5,6 +5,7 @@ var Description = $("#actDescription");
 var submitBtn = $("#choose");
 var actList = $("#activityList");
 var btn = $(".buttonAct");
+var categoryToShow = btn.val();
 
 var activityCategory = $("#activityCategory");
 // The API object contains methods for each kind of request we'll make
@@ -25,10 +26,10 @@ var API = {
             type: "GET"
         });
     },
-    getActivityByCategory: function (category) {
-        var category = btn.val();
+    getActivityByCategory: function (categoryToShow) {
+
         return $.ajax({
-            url: "api/activities/" + category,
+            url: "api/activities/" + categoryToShow,
             type: "GET"
         });
     },
@@ -40,22 +41,30 @@ var API = {
     }
 };
 // refreshExamples gets new examples from the db and repopulates the list
-var refreshActivity = function () {
+var refreshActivity = function (event) {
+    event.preventDefault();
 
-    API.getActivityByCategory().then(function (data) {
-        for (item in data) {
+
+
+    API.getActivityByCategory(event.currentTarget.value).then(function (data) {
+        console.log(data);
+        actList.empty();
+        for (var item of data) {
+
             var newElement = $("<div>")
                 .attr("class", "todoAct")
-                .parent()
 
-            var h = $("<h6>")
+
+            var listedActName = $("<h4>")
                 .text(item.act_name);
 
-            var p = $("<p>")
+            var listedActDesc = $("<p>")
                 .text(item.description);
 
-            newElement.append(h, p);
-            actList.empty();
+            let button = $('<button>').text('Choose Me').addClass('chooseMe').attr('data-id', item.id).attr('data-todo', item.todo);
+
+            newElement.append(listedActName, listedActDesc, button);
+
             actList.append(newElement);
         }
 
@@ -64,6 +73,45 @@ var refreshActivity = function () {
 
 
 };
+
+$(document).on('click', '.chooseMe',  function () {
+    //allows user to update the name of any burger by clicking the 
+    var burger = $(this).parent();
+    var id = $(this).data('id');
+    var devour = {
+        devoured: $(this).data('devour')
+    };
+    var name = $(this).prev().text();
+
+    if (devour.devoured === false || devour.devoured === 0 || devour.devoured === '0') {
+        $.ajax(`/api/burgers/${id}`, {
+            type: 'PUT',
+            data: devour
+        }).then(function (burgerUpdate) {
+            if (burgerUpdate) {
+                burger.remove();
+                var li = $('<li>');
+                var p = $('<p>').text(name);
+                var button = $('<button>').text('Destroy').addClass('updateMe').attr('data-id', id).attr('data-devour', 1);
+
+                $(li).append(p, button);
+                $('#toDelete').prepend(li);
+            }
+
+        })
+    } else {
+        $.ajax(`/api/burgers/${id}`, {
+            type: 'DELETE'
+        }).then(function (burgerDelete) {
+
+            if (burgerDelete) {
+                burger.remove();
+            }
+
+        })
+    }
+    location.reload();
+})
 
 
 
