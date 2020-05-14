@@ -12,15 +12,23 @@ const session = require('express-session')
 const methodOverride = require('method-override')
 const db = require("./models")
 const PORT = process.env.PORT || 8080;
-
 const initializePassport = require('./passport-config')
 initializePassport(
   passport,
-  email => users.find(user => user.email === email),
-  id => users.find(user => user.id === id)
-)
+  email => db.User.findAll({
+    where: {
+      email: email
+    }
+  }),
 
-const users = []
+  id => db.User.findAll({
+    where: {
+      id: id
+    }
+  })
+);
+
+
 app.engine(
   'handlebars',
   exphbs({
@@ -58,9 +66,8 @@ app.use(passport.session());
 app.use(methodOverride('_method'));
 
 app.get('/', checkAuthenticated, (req, res) => {
-  res.render('index', {
-    name: req.user.name
-  });
+
+  res.render('index');
 });
 
 app.get('/login', (req, res) => {
@@ -72,22 +79,26 @@ app.get('/guest', (req, res) => {
 })
 
 app.post('/login', passport.authenticate('local', {
-
   successRedirect: '/',
-  failureRedirect: '/login',
+   failureRedirect: '/login',
   failureFlash: true
 }))
+
+
+
 
 app.get('/register', (req, res) => {
   res.render('register')
 })
 
 app.post('/register', async (req, res) => {
+
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10)
+
     db.User.create({
-      first_name: req.body.fname,
-      last_name: req.body.lname,
+      first_name: req.body.first_name,
+      last_name: req.body.last_name,
       email: req.body.email,
       password: hashedPassword
     }).then(function (result) {
@@ -121,7 +132,7 @@ function checkAuthenticated(req, res, next) {
 
 
 db.sequelize.sync({
-  force: true
+
 }).then(function () {
   app.listen(PORT, function () {
     console.log("App listening on PORT " + PORT);
