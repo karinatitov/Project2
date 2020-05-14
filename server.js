@@ -45,8 +45,8 @@ app.use(express.json());
 
 // Routes
 // =============================================================
-// require("./routes/hbs-routes.js")(app);
-require("./routes/category-api-routes.js")(app);
+
+
 require("./routes/act-api-routes.js")(app);
 
 app.use(require('express-session')({
@@ -80,7 +80,7 @@ app.get('/guest', (req, res) => {
 
 app.post('/login', passport.authenticate('local', {
   successRedirect: '/',
-   failureRedirect: '/login',
+  failureRedirect: '/login',
   failureFlash: true
 }))
 
@@ -103,7 +103,7 @@ app.post('/register', async (req, res) => {
       password: hashedPassword
     }).then(function (result) {
 
-      // console.log(result)
+
       res.redirect('/login');
 
     })

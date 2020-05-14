@@ -3,7 +3,8 @@ module.exports = function (sequelize, DataTypes) {
 
         act_name: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
+            defaultValue:"random",
             validate: {
                 len: [1]
             }
@@ -33,15 +34,7 @@ module.exports = function (sequelize, DataTypes) {
 
 
     });
-
-    Activity.associate = function(models) {
-        // We're saying that a Activity should belong to an Author
-        // A Activity can't be created without an Author due to the foreign key constraint
-        Activity.belongsTo(models.Category, {
-          foreignKey: {
-            allowNull: false
-          }
-        });
-      };
     return Activity;
+  },{
+  timestamps: false
 };

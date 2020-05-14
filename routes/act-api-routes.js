@@ -5,34 +5,38 @@ module.exports = function (app) {
   app.get("/api/activities", function (req, res) {
     var query = {};
     if (req.query.category) {
-      query.actCategory = req.query.category;
+      query.category = req.query.category;
     }
 
     db.Activity.findAll({
-      where: query,
-      include: [db.Category]
+      where: query
+      
     }).then(function (dbActivity) {
       res.json(dbActivity);
     });
   });
 
-  app.get("/api/posts/:id", function (req, res) {
+  app.get("/api/activities/:category", function (req, res) {
     // Here we add an "include" property to our options in our findOne query
     // We set the value to an array of the models we want to include in a left outer join
     // In this case, just db.Author
-    db.Activity.findOne({
+  console.log(db.Activity);
+    db.Activity.findAll({
       where: {
-        id: req.params.id
-      },
-      include: [db.Category]
-    }).then(function (dbActivity) {
-      res.json(dbActivity);
+        category: req.params.category
+      }
+    }).then(function (dbActivities) {
+
+      console.log(dbActivities);
+      res.json(dbActivities);
+
+
     });
   });
 
 
 
-  // Create a new example
+  // Create a new activity
   app.post("/api/activities", function (req, res) {
     db.Activity.create(req.body).then(function (dbActivity) {
       res.json(dbActivity);
