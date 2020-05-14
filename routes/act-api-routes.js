@@ -5,12 +5,12 @@ module.exports = function (app) {
   app.get("/api/activities", function (req, res) {
     var query = {};
     if (req.query.category) {
-      query.actCategory = req.query.category;
+      query.category = req.query.category;
     }
 
     db.Activity.findAll({
-      where: query,
-      include: [db.Category]
+      where: query
+      
     }).then(function (dbActivity) {
       res.json(dbActivity);
     });
@@ -23,8 +23,7 @@ module.exports = function (app) {
     db.Activity.findOne({
       where: {
         id: req.params.id
-      },
-      include: [db.Category]
+      }
     }).then(function (dbActivity) {
       res.json(dbActivity);
     });

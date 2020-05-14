@@ -1,4 +1,5 @@
 module.exports = function (sequelize, DataTypes) {
+<<<<<<< HEAD
   var Activity = sequelize.define("Activity", {
 
     act_name: {
@@ -41,11 +42,58 @@ module.exports = function (sequelize, DataTypes) {
       foreignKey: {
         allowNull: false
       }
+=======
+    var Activity = sequelize.define("Activity", {
+
+        act_name: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            defaultValue:"random",
+            validate: {
+                len: [1]
+            }
+        },
+
+        description: {
+            type: DataTypes.TEXT,
+            allowNull: false,
+            len: [1]
+          },
+
+        category: {
+            type: DataTypes.STRING,
+            defaultValue: "Random"
+        },
+
+
+        todo: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
+        },
+
+        completed: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
+        }
+
+
+>>>>>>> d736e9df11d4d328d5589ec4fd4b54396d2c4b86
     });
   };
 
 
+<<<<<<< HEAD
   return Activity;
 }, {
   timestamps: false
 };
+=======
+   
+    return Activity;
+  }, {
+    timestamps: false
+  };
+    
+
+    
+>>>>>>> d736e9df11d4d328d5589ec4fd4b54396d2c4b86
