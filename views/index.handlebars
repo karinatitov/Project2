@@ -1,10 +1,9 @@
-<section class="hero">
-  <div class="hero-body">
-    <div class="container">
-      <h1 class="title has-text-danger cursive; text-align:center;" style="font-family: 'Bungee Outline', cursive;">
-        Verb-its!
+<section class="section">
+  <div class="container">
+    <span class="title has-text-danger cursive; text-align:center;" style="font-family: 'Bungee Outline', cursive;">
+      Verb-its!
       </h1>
-    </div>
+  </div>
   </div>
 </section>
 <div class="tile is-ancestor">
@@ -14,18 +13,18 @@
       <div class="tile is-child box">
         <p class="title">Be Lazy</p>
         <p class="subtitle">Lowkey simple activities to do at home with little to no effort</p>
-        <button class="button is-large is-info is-light buttonAct" value="Lazy">Lazy-<i>it!</i></button>
+        <button class="button is-small is-info is-light buttonAct" value="Lazy">Lazy-<i>it!</i></button>
 
       </div>
       <div class="tile is-child box">
         <p class="title">Use your Brain
         <p class="subtitle">Activities meant to be stimulating, for your mind.</p>
-        <button class="button is-large is-info is-light buttonAct"  value="Brain">Brain-<i>it!</i></button>
+        <button class="button is-small is-info is-light buttonAct" value="Brain">Brain-<i>it!</i></button>
       </div>
       <div class="tile is-child box">
         <p class="title">Use your energy</p>
         <p class="subtitle">Activities you can do at home, that may make you break a sweat</p>
-        <button class="button is-large is-info is-light buttonAct" value="Outside">Energize<i>it!</i></button>
+        <button class="button is-small is-info is-light buttonAct" value="Outside">Energize<i>it!</i></button>
       </div>
     </div>
   </div>
@@ -33,13 +32,28 @@
     <div class="tile is-child box">
       <h2 class="title is-2 text-is-center">Activity Button</h1>
         <h4 class="title is-4">Click the button to get a random activity in any kind of category!</h4>
-        <button class="button is-large is-info is-light">Verb-<i>it!</i></button>
+        <button class="button is-large is-info is-light" id="randomActivity">Verb-<i>it!</i></button>
         <br><br>
-        <figure class="image is-image is-4by6">
+        <figure class="image is-image is-4by6" id="toHide">
           <img src="/../assests/img/idea.jpg">
         </figure>
 
-        <span id="activityList"></span>
+        <div id="activityList">
+          <div class="tile is-child box">
+            <p class="title"><i class="fas fa-check-square"></i> Task 1</p>
+            <p class="subtitle">Description</p>
+          </div>
+          <div class="tile is-child box">
+            <p class="title"><i class="fas fa-check-square"></i> Task 2</p>
+            <p class="subtitle">Description</p>
+          </div>
+          <div class="tile is-child box">
+            <p class="title"><i class="fas fa-check-square"></i> Task 3</p>
+            <p class="subtitle">Description</p>
+          </div>
+
+        </div>
+
     </div>
   </div>
   <div class="tile is-4 is-parent">
@@ -54,7 +68,7 @@
               <option value="">Choose a Category</option>
               <option value="Lazy">Lazy</option>
               <option value="Brain">Brain Exercies</option>
-              <option value="Outdoor">Outdoor</option>
+              <option value="Outside">Outdoor</option>
             </select>
           </div>
         </div>
@@ -83,42 +97,54 @@
   <div class="tile is-parent is-6">
     <article class="tile is-child box">
       <h2 class="title is-2"> To Do List</h2>
-      <p class="subtitle 3">These are all the activites that you have saved, but have not completed.</p>
-      <div class="tile is-child box">
-        <p class="title"><i class="fas fa-check-square"></i> Task 1</p>
-        <p class="subtitle">Description</p>
+      <p class="subtitle 3">Activites you want to do, but have not yet completed!</p>
+
+      <div id="toDoList">
+        <div class="tile is-child box">
+          <p class="title"><i class="fas fa-check-square"></i> Task 1</p>
+          <p class="subtitle">Description</p>
+        </div>
+        <div class="tile is-child box">
+          <p class="title"><i class="fas fa-check-square"></i> Task 2</p>
+          <p class="subtitle">Description</p>
+        </div>
+        <div class="tile is-child box">
+          <p class="title"><i class="fas fa-check-square"></i> Task 3</p>
+          <p class="subtitle">Description</p>
+        </div>
+
       </div>
-      <div class="tile is-child box">
-        <p class="title"><i class="fas fa-check-square"></i> Task 2</p>
-        <p class="subtitle">Description</p>
-      </div>
-      <div class="tile is-child box">
-        <p class="title"><i class="fas fa-check-square"></i> Task 3</p>
-        <p class="subtitle">Description</p>
-      </div>
+
     </article>
   </div>
   <div class="tile is-parent is-6">
     <article class="tile is-child box">
-      <h2 class="title is-2">Completed Tasks</h2>
+      <h2 class="title is-2">Activities You've Completed! </h2>
+      <p class="subtitle 3">Good Job, </p>
+
+      <div id="completeList">
+
+
         <div class="tile is-child box">
-        <p class="title"><i class="fas fa-check-square"></i> Task 1</p>
-        <p class="subtitle">Description</p>
-      </div>
-      <div class="tile is-child box">
-        <p class="title"><i class="fas fa-check-square"></i> Task 2</p>
-        <p class="subtitle">Description</p>
-      </div>
-      <div class="tile is-child box">
-        <p class="title"><i class="fas fa-check-square"></i> Task 3</p>
-        <p class="subtitle">Description</p>
+          <p class="title"><i class="fas fa-check-square"></i> Task 1</p>
+          <p class="subtitle">Description</p>
+        </div>
+
+        <div class="tile is-child box">
+          <p class="title"><i class="fas fa-check-square"></i> Task 2</p>
+          <p class="subtitle">Description</p>
+        </div>
+
+        <div class="tile is-child box">
+          <p class="title"><i class="fas fa-check-square"></i> Task 3</p>
+          <p class="subtitle">Description</p>
+        </div>
       </div>
     </article>
   </div>
 </div>
 <footer class="footer">
   <div class="content has-text-centered">
-    <p>
     <h3>#Verb-<i>its</i></h3> by <a href="https://github.com/KarinaTitov">Karina Titov</a> | <a
       href="https://github.com/Brandon20202">Brandon Taylor</a> | <a href="https://github.com/LindseyLowther44">Lindsey
       Lowther</a> |

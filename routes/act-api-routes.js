@@ -1,18 +1,12 @@
+/* eslint-disable prettier/prettier */
 var db = require("../models");
 
 module.exports = function (app) {
   // Get all examples
   app.get("/api/activities", function (req, res) {
-    var query = {};
-    if (req.query.category) {
-      query.category = req.query.category;
-    }
-
-    db.Activity.findAll({
-      where: query
-      
-    }).then(function (dbActivity) {
-      res.json(dbActivity);
+   
+    db.Activity.findAll({}).then(function (activities) {
+      res.json(activities);
     });
   });
 
@@ -20,7 +14,7 @@ module.exports = function (app) {
     // Here we add an "include" property to our options in our findOne query
     // We set the value to an array of the models we want to include in a left outer join
     // In this case, just db.Author
-  console.log(db.Activity);
+
     db.Activity.findAll({
       where: {
         category: req.params.category
@@ -39,6 +33,19 @@ module.exports = function (app) {
   // Create a new activity
   app.post("/api/activities", function (req, res) {
     db.Activity.create(req.body).then(function (dbActivity) {
+      res.json(dbActivity);
+    });
+  });
+
+  app.post("/api/activities/:id", function (req, res) {
+
+    db.Activity.update(req.body, {
+      where: {
+        id: req.params.id
+      }
+    }).then(function (dbActivity) {
+     
+      console.log(dbActivity);
       res.json(dbActivity);
     });
   });
