@@ -62,7 +62,7 @@ $(document).ready(function() {
 
         let button = $("<button>")
           .text("Choose Me")
-          .addClass("chooseMe")
+          .addClass("chooseMe is")
           .attr("data-id", item.id)
           .attr("data-todo", item.todo);
 
