@@ -96,8 +96,8 @@ $(document).ready(function () {
             console.log(activityUpdate)
             if (activityUpdate) {
                 activity.remove();
-                var newDiv = $('<div>')
-                    .attr("class", "tile is-child box")
+                // var newDiv = $('<div>')
+                //     .attr("class", "tile is-child box")
                 var newActivity = $("<p>")
                     .attr("class", "title")
                     .text(activity.attr("data-name"))

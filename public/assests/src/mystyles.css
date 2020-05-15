@@ -6225,4 +6225,9 @@ a.navbar-item:focus, a.navbar-item:focus-within, a.navbar-item:hover, a.navbar-i
     padding: 18rem 1.5rem;
   }
 }
+
+button {
+  border-color: #fa7c91;
+  color: #fa7c91;
+}
 /*# sourceMappingURL=mystyles.css.map */
