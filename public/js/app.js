@@ -2,7 +2,8 @@ $(document).ready(function () {
     // $("#toHide").show();
     $("#toDoList").show();
     $("#completeList").show();
-    
+
+
     // Get references to page elements
     var actName = $("#actName");
     var category = $("#Category");
@@ -10,6 +11,7 @@ $(document).ready(function () {
     var submitBtn = $("#choose");
     var actList = $("#activityList");
     var btn = $(".buttonAct");
+
 
 
 
@@ -101,7 +103,7 @@ $(document).ready(function () {
             for (var item of data) {
 
                 console.log(data)
-                
+
                 var item = data[Math.floor(Math.random() * data.length)];
 
 
@@ -158,6 +160,7 @@ $(document).ready(function () {
                 // $(actDescription).append();
                 $(newDiv).append(newActivity, actDescription, checkbox);
                 $('#toDoList').append(newDiv);
+
             }
 
         })
@@ -165,7 +168,7 @@ $(document).ready(function () {
 
     $(document).on('click', '.updateMe', function (event) {
         event.preventDefault();
-
+        $('#toDoList').empty();
         $('#completeList').empty();
         //allows user to update the name of any activity by clicking the 
         var activity = $(this);
@@ -192,10 +195,34 @@ $(document).ready(function () {
                 var buttonDelete = $('<button>').text('Delete').addClass('deleteMe').attr('data-id', id);;
                 $(newDiv).append(newActivity, actDescription, buttonDelete);
                 $('#completeList').append(newDiv);
+
             }
 
         })
     })
+
+    $(document).on('click', '.deleteMe', function (event) {
+        event.preventDefault();
+        $('#todolist').empty();
+
+        var activity = $(this).parent();
+        var id = $(this).data('id');
+        var newTodo = false;
+        var newTodoState = {
+            todo: newTodo
+        }
+
+        $.ajax(`/api/activities/${id}`, {
+            type: 'POST',
+            data: newTodoState
+        }).then(function (activityUpdate) {
+            console.log(activityUpdate)
+            if (activityUpdate) {
+                activity.remove();
+            }
+        })
+    })
+
 
 
 
@@ -221,16 +248,20 @@ $(document).ready(function () {
     // handleDeleteBtnClick is called when an example's delete button is clicked
     // Remove the example from the db and refresh the list
     var handleDeleteBtnClick = function () {
-        var idToDelete = $(this)
-            .parent()
-            .attr("data-id");
-        API.deleteActivity(idToDelete).then(function () {
-            refreshActivity();
+        $(document).on('click', '.', function (event) {
+            event.preventDefault();
+            var idToDelete = $(this)
+                .parent()
+                .attr("data-id");
+            API.deleteActivity(idToDelete).then(function () {
+                refreshActivity();
+            });
         });
     };
-    // Add event listeners to the submit and delete buttons
-    submitBtn.on("click", handleFormSubmit);
-    actList.on("click", ".delete", handleDeleteBtnClick);
-    btn.on("click", refreshActivity);
-
-})
+        // Add event listeners to the submit and delete buttons
+        submitBtn.on("click", handleFormSubmit);
+        actList.on("click", ".delete", handleDeleteBtnClick);
+        btn.on("click", refreshActivity);
+    
+   
+});

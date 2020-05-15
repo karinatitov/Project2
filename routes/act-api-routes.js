@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 var db = require("../models");
 
 module.exports = function (app) {
@@ -44,9 +45,9 @@ module.exports = function (app) {
       }
     }).then(function (dbActivity) {
      
-      console.log(dbActivity)
-      res.json(dbActivity)
-    })
+      console.log(dbActivity);
+      res.json(dbActivity);
+    });
   });
 
   // Delete an example by id
