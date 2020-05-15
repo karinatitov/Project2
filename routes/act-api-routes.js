@@ -10,7 +10,7 @@ module.exports = function (app) {
 
     db.Activity.findAll({
       where: query
-      
+
     }).then(function (dbActivity) {
       res.json(dbActivity);
     });
@@ -20,7 +20,7 @@ module.exports = function (app) {
     // Here we add an "include" property to our options in our findOne query
     // We set the value to an array of the models we want to include in a left outer join
     // In this case, just db.Author
-  console.log(db.Activity);
+
     db.Activity.findAll({
       where: {
         category: req.params.category
@@ -41,6 +41,21 @@ module.exports = function (app) {
     db.Activity.create(req.body).then(function (dbActivity) {
       res.json(dbActivity);
     });
+  });
+
+  app.post("/api/activities/:id", function (req, res) {
+
+    db.Activity.update({
+      where: {
+        id: req.params.id
+      }
+    }).then(function (dbActivity) {
+      dbActivity = {
+        todo: 1
+      }
+      console.log(dbActivity)
+      res.json(dbActivity)
+    })
   });
 
   // Delete an example by id

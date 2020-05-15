@@ -44,10 +44,11 @@ var API = {
 var refreshActivity = function (event) {
     event.preventDefault();
 
+    $("#toHide").hide();
 
 
     API.getActivityByCategory(event.currentTarget.value).then(function (data) {
-        console.log(data);
+
         actList.empty();
         for (var item of data) {
 
@@ -75,42 +76,32 @@ var refreshActivity = function (event) {
 };
 
 $(document).on('click', '.chooseMe',  function () {
-    //allows user to update the name of any burger by clicking the 
-    var burger = $(this).parent();
+    //allows user to update the name of any activity by clicking the 
+    var activity = $(this).parent();
     var id = $(this).data('id');
-    var devour = {
-        devoured: $(this).data('devour')
+    var toBeDone = {
+        todo: $(this).data('todo')
     };
     var name = $(this).prev().text();
 
-    if (devour.devoured === false || devour.devoured === 0 || devour.devoured === '0') {
-        $.ajax(`/api/burgers/${id}`, {
+    if (toBeDone.todo === false || toBeDone.todo === 0 || toBeDone.todo === '0') {
+        $.ajax(`/api/activities/${id}`, {
             type: 'PUT',
-            data: devour
-        }).then(function (burgerUpdate) {
-            if (burgerUpdate) {
-                burger.remove();
+            data: toBeDone
+        }).then(function (activityUpdate) {
+            if (activityUpdate) {
+                activity.remove();
                 var li = $('<li>');
                 var p = $('<p>').text(name);
-                var button = $('<button>').text('Destroy').addClass('updateMe').attr('data-id', id).attr('data-devour', 1);
+                var button = $('<button>').text('Complete').addClass('updateMe').attr('data-id', id).attr('data-complete', 0);
 
                 $(li).append(p, button);
-                $('#toDelete').prepend(li);
+                $('#toDoList').append(li);
             }
 
         })
-    } else {
-        $.ajax(`/api/burgers/${id}`, {
-            type: 'DELETE'
-        }).then(function (burgerDelete) {
-
-            if (burgerDelete) {
-                burger.remove();
-            }
-
-        })
-    }
-    location.reload();
+    } 
+    // location.reload();
 })
 
 

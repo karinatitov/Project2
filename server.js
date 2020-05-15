@@ -92,7 +92,7 @@ app.get('/register', (req, res) => {
 })
 
 app.post('/register', async (req, res) => {
-
+console.log(req.body)
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10)
 
@@ -103,7 +103,7 @@ app.post('/register', async (req, res) => {
       password: hashedPassword
     }).then(function (result) {
 
-
+console.log(result);
       res.redirect('/login');
 
     })
