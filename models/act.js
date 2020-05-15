@@ -1,40 +1,42 @@
+/* eslint-disable prettier/prettier */
 module.exports = function (sequelize, DataTypes) {
-    var Activity = sequelize.define("Activity", {
+  var Activity = sequelize.define("Activity", {
 
-        act_name: {
-            type: DataTypes.STRING,
-            allowNull: true,
-            defaultValue:"random",
-            validate: {
-                len: [1]
-            }
-        },
+    // eslint-disable-next-line camelcase
+    act_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue:"random",
+      validate: {
+        len: [1]
+      }
+    },
 
-        description: {
-            type: DataTypes.TEXT,
-            allowNull: false,
-            len: [1]
-          },
+    description: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+      len: [1]
+    },
 
-        category: {
-            type: DataTypes.STRING,
-            defaultValue: "Random"
-        },
-
-
-        todo: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: false
-        },
-
-        completed: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: false
-        }
+    category: {
+      type: DataTypes.STRING,
+      defaultValue: "Random"
+    },
 
 
-    });
-    return Activity;
-  },{
+    todo: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+
+    completed: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    }
+
+
+  });
+  return Activity;
+},{
   timestamps: false
 };
