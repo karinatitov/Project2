@@ -79,15 +79,15 @@ $(document).on('click', '.chooseMe',  function () {
     //allows user to update the name of any activity by clicking the 
     var activity = $(this).parent();
     var id = $(this).data('id');
-    var toBeDone = {
-        todo: $(this).data('todo')
-    };
-    var name = $(this).prev().text();
+    var newTodo = 1;
+    var newTodoState = {
+        todo: newTodo
+    }
 
     if (toBeDone.todo === false || toBeDone.todo === 0 || toBeDone.todo === '0') {
         $.ajax(`/api/activities/${id}`, {
             type: 'PUT',
-            data: toBeDone
+            data: newTodoState
         }).then(function (activityUpdate) {
             if (activityUpdate) {
                 activity.remove();
