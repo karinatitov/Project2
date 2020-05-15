@@ -1,18 +1,12 @@
+/* eslint-disable prettier/prettier */
 var db = require("../models");
 
 module.exports = function (app) {
   // Get all examples
   app.get("/api/activities", function (req, res) {
-    var query = {};
-    if (req.query.category) {
-      query.category = req.query.category;
-    }
-
-    db.Activity.findAll({
-      where: query
-
-    }).then(function (dbActivity) {
-      res.json(dbActivity);
+   
+    db.Activity.findAll({}).then(function (activities) {
+      res.json(activities);
     });
   });
 
@@ -51,9 +45,9 @@ module.exports = function (app) {
       }
     }).then(function (dbActivity) {
      
-      console.log(dbActivity)
-      res.json(dbActivity)
-    })
+      console.log(dbActivity);
+      res.json(dbActivity);
+    });
   });
 
   // Delete an example by id
