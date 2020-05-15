@@ -45,14 +45,12 @@ module.exports = function (app) {
 
   app.post("/api/activities/:id", function (req, res) {
 
-    db.Activity.update({
+    db.Activity.update(req.body, {
       where: {
         id: req.params.id
       }
     }).then(function (dbActivity) {
-      dbActivity = {
-        todo: 1
-      }
+     
       console.log(dbActivity)
       res.json(dbActivity)
     })
