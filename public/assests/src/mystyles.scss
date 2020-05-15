@@ -1,24 +1,23 @@
-
 @charset "utf-8";
 
 // Import a Google Font
-@import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Nunito:400,700");
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap");
 
 // Set your brand colors
-$purple: #604D53;
-$gray: #9DA3A4;
+$purple: #604d53;
+$gray: #9da3a4;
 $light-pink: #daaec0;
-$pink: #DB7F8E;
+$pink: #db7f8e;
 $green: #567568;
 
 // Update Bulma's global variables
-$family-sans-serif: 'Quicksand', sans-serif;
-$purple: #8A4D76;
-$pink: #FA7C91;
+$family-sans-serif: "Quicksand", sans-serif;
+$purple: #8a4d76;
+$pink: #fa7c91;
 $brown: #757763;
-$beige-light: #D0D1CD;
-$beige-lighter: #EFF0EB;
+$beige-light: #d0d1cd;
+$beige-lighter: #eff0eb;
 
 // Update Bulma's global variables
 $family-sans-serif: "Nunito", sans-serif;
@@ -34,7 +33,6 @@ $body-background-color: $beige-lighter;
 $control-border-width: 2px;
 $input-border-color: transparent;
 $input-shadow: none;
-
 
 @import "../../../node_modules/bulma/sass/utilities/_all.sass";
 @import "../../../node_modules/bulma/sass/base/_all.sass";
