@@ -162,7 +162,7 @@ $(document).ready(function () {
     $(document).on('click', '.chooseMe', function (event) {
         event.preventDefault();
 
-        $('#toDoList').empty();
+        // $('#toDoList').empty();
         //allows user to update the name of any activity by clicking the 
         var activity = $(this).parent();
         var id = $(this).data('id');
@@ -198,8 +198,8 @@ $(document).ready(function () {
 
     $(document).on('click', '.updateMe', function (event) {
         event.preventDefault();
-        $('#toDoList').empty();
-        $('#completeList').empty();
+        // $('#toDoList').empty();
+        // $('#completeList').empty();
         //allows user to update the name of any activity by clicking the 
         var activity = $(this).parent();
         var id = $(this).data('id');
