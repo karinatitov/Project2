@@ -144,131 +144,165 @@ $(document).ready(function () {
       }
 
 
-      $.ajax(`/api/activities/${id}`, {
-          type: 'POST',
-          data: newTodoState
-      }).then(function (activityUpdate) {
-          console.log(activityUpdate)
-          if (activityUpdate) {
-              activity.remove();
-              var newDiv = $('<div>')
-                  .attr("class", "tile is-child box")
-              var newActivity = $("<p>")
-                  .attr("class", "title")
-                  .text(activity.attr("data-name"))
-              var actDescription = $('<p>').text(activity.val()).attr("class", "subtitle").text(activityUpdate.description);
-              var checkbox = $("<i>").attr("class", "fas fa-check-square").addClass('updateMe').attr('data-id', id).attr('data-complete', 0);
-              // $(actDescription).append();
-              $(newDiv).append(newActivity, actDescription, checkbox);
-              console.log(actDescription);
-              $('#toDoList').append(newDiv);
+                var newElement = $("<div>")
+                    .attr("class", "activityToDo")
+                    .attr("data-name", item.act_name)
+                var listedActName = $("<h4>").text(item.act_name);
 
-          }
+                var listedActDesc = $("<p>").text(item.description)
+                    .attr("value", item.description);
 
-      })
-  })
-
-  $(document).on('click', '.updateMe', function (event) {
-      event.preventDefault();
-      $('#toDoList').empty();
-      $('#completeList').empty();
-      //allows user to update the name of any activity by clicking the 
-      var activity = $(this).parent();
-      var id = $(this).data('id');
-      var newComplete = true;
-      var newCompleteState = {
-          completed: newComplete
-      }
+                let button = $("<button>")
+                    .text("Choose Me")
+                    .addClass("chooseMe")
+                    .attr("data-id", item.id)
+                    .attr("data-todo", item.todo);
 
 
-      $.ajax(`/api/activities/${id}`, {
-          type: 'POST',
-          data: newCompleteState
-      }).then(function (activityUpdate) {
-          console.log(activityUpdate)
-          if (activityUpdate) {
-              activity.remove();
-              var newDiv = $('<div>')
-                  .attr("class", "tile is-child box")
-              var newActivity = $("<p>")
-                  .attr("class", "title")
-                  .text(activityUpdate.act_name)
-              var actDescription = $('<p>').text(activity.val()).attr("class", "subtitle").text(activityUpdate.description);
-              var buttonDelete = $('<button>').text('Delete').addClass('deleteMe').attr('data-id', id);
+                newElement.append(listedActName, listedActDesc, button);
 
-              $(newDiv).append(newActivity, actDescription, buttonDelete);
-              console.log(actDescription);
-              $('#completeList').append(newDiv);
+                actList.append(newElement);
+            }
+  )
 
-          }
+    })
 
-      })
-  })
+    $(document).on('click', '.chooseMe', function (event) {
+        event.preventDefault();
 
-  $(document).on('click', '.deleteMe', function (event) {
-      event.preventDefault();
-      $('#todolist').empty();
-
-      var activity = $(this).parent()
-      var id = $(this).data('id');
-      var newTodo = false;
-      var newCompleted=false;
-      var newState = {
-          todo: newTodo,
-          completed: newCompleted
-      }
-
-      $.ajax(`/api/activities/${id}`, {
-          type: 'POST',
-          data: newState
-      }).then(function (activityUpdate) {
-          console.log(activityUpdate)
-          if (activityUpdate) {
-              activity.remove();
-          }
-      })
-  })
+        $('#toDoList').empty();
+        //allows user to update the name of any activity by clicking the 
+        var activity = $(this).parent();
+        var id = $(this).data('id');
+        var newTodo = true;
+        var newTodoState = {
+            todo: newTodo
+        }
 
 
+        $.ajax(`/api/activities/${id}`, {
+            type: 'POST',
+            data: newTodoState
+        }).then(function (activityUpdate) {
+            console.log(activityUpdate)
+            if (activityUpdate) {
+                activity.remove();
+                var newDiv = $('<div>')
+                    .attr("class", "tile is-child box")
+                var newActivity = $("<p>")
+                    .attr("class", "title")
+                    .text(activity.attr("data-name"))
+                var actDescription = $('<p>').text(activity.val()).attr("class", "subtitle").text(activityUpdate.description);
+                var checkbox = $("<i>").attr("class", "fas fa-check-square").addClass('updateMe').attr('data-id', id).attr('data-complete', 0);
+                // $(actDescription).append();
+                $(newDiv).append(newActivity, actDescription, checkbox);
+                console.log(actDescription);
+                $('#toDoList').append(newDiv);
+
+            }
+
+        })
+    })
+
+    $(document).on('click', '.updateMe', function (event) {
+        event.preventDefault();
+        $('#toDoList').empty();
+        $('#completeList').empty();
+        //allows user to update the name of any activity by clicking the 
+        var activity = $(this).parent();
+        var id = $(this).data('id');
+        var newComplete = true;
+        var newCompleteState = {
+            completed: newComplete
+        }
+
+
+        $.ajax(`/api/activities/${id}`, {
+            type: 'POST',
+            data: newCompleteState
+        }).then(function (activityUpdate) {
+            console.log(activityUpdate)
+            if (activityUpdate) {
+                activity.remove();
+                var newDiv = $('<div>')
+                    .attr("class", "tile is-child box")
+                var newActivity = $("<p>")
+                    .attr("class", "title")
+                    .text(activityUpdate.act_name)
+                var actDescription = $('<p>').text(activity.val()).attr("class", "subtitle").text(activityUpdate.description);
+                var buttonDelete = $('<button>').text('Delete').addClass('deleteMe').attr('data-id', id);
+
+                $(newDiv).append(newActivity, actDescription, buttonDelete);
+                console.log(actDescription);
+                $('#completeList').append(newDiv);
+
+            }
+
+        })
+    })
+
+    $(document).on('click', '.deleteMe', function (event) {
+        event.preventDefault();
+        $('#todolist').empty();
+
+        var activity = $(this).parent()
+        var id = $(this).data('id');
+        var newTodo = false;
+        var newCompleted=false;
+        var newState = {
+            todo: newTodo,
+            completed: newCompleted
+        }
+
+        $.ajax(`/api/activities/${id}`, {
+            type: 'POST',
+            data: newState
+        }).then(function (activityUpdate) {
+            console.log(activityUpdate)
+            if (activityUpdate) {
+                activity.remove();
+            }
+        })
+    })
 
 
 
-  var handleFormSubmit = function (event) {
-      event.preventDefault();
-      var activity = {
-          act_name: actName.val().trim(),
-          category: category.val().trim(),
-          description: Description.val().trim(),
-      };
-      if (!(activity.category && activity.description)) {
-          alert("You must enter an activity category and description!");
-          return;
-      }
-      API.saveActivity(activity).then(function () {
-          refreshActivity();
-      });
 
-      category.val("");
-      Description.val("");
-      act_name.val("");
-  };
-  // handleDeleteBtnClick is called when an example's delete button is clicked
-  // Remove the example from the db and refresh the list
-  var handleDeleteBtnClick = function () {
-      $(document).on('click', '.', function (event) {
-          event.preventDefault();
-          var idToDelete = $(this)
-              .parent()
-              .attr("data-id");
-          API.deleteActivity(idToDelete).then(function () {
-              refreshActivity();
-          });
-      });
-  };
-      // Add event listeners to the submit and delete buttons
-      submitBtn.on("click", handleFormSubmit);
-      actList.on("click", ".delete", handleDeleteBtnClick);
-      btn.on("click", refreshActivity);
+
+    var handleFormSubmit = function (event) {
+        event.preventDefault();
+        var activity = {
+            act_name: actName.val().trim(),
+            category: category.val().trim(),
+            description: Description.val().trim(),
+        };
+        if (!(activity.category && activity.description)) {
+            alert("You must enter an activity category and description!");
+            return;
+        }
+        API.saveActivity(activity).then(function () {
+            refreshActivity();
+        });
+
+        category.val("");
+        Description.val("");
+        act_name.val("");
+    };
+    // handleDeleteBtnClick is called when an example's delete button is clicked
+    // Remove the example from the db and refresh the list
+    var handleDeleteBtnClick = function () {
+        $(document).on('click', '.', function (event) {
+            event.preventDefault();
+            var idToDelete = $(this)
+                .parent()
+                .attr("data-id");
+            API.deleteActivity(idToDelete).then(function () {
+                refreshActivity();
+            });
+        });
+    };
+        // Add event listeners to the submit and delete buttons
+        submitBtn.on("click", handleFormSubmit);
+        actList.on("click", ".delete", handleDeleteBtnClick);
+        btn.on("click", refreshActivity);
   
- 
-});
