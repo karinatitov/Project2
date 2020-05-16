@@ -5,7 +5,7 @@ $(document).ready(function () {
 
     // Get references to page elements
     var actName = $("#actName");
-    var category = $("#Category");
+    var category = $("#category");
     var Description = $("#actDescription");
     var submitBtn = $("#choose");
     var actList = $("#activityList");
@@ -90,9 +90,9 @@ $(document).ready(function () {
         $("#toHide").hide();
 
 
-        $("#toHide").hide();
+        actList.empty();
 
-        API.getActivity(event).then(function (data) {
+        API.getActivityByCategory(event.currentTarget.value).then(function (data) {
             for (var item of data) {
 
 
@@ -162,7 +162,7 @@ $(document).ready(function () {
     $(document).on('click', '.chooseMe', function (event) {
         event.preventDefault();
 
-        $('#toDoList').empty();
+        // $('#toDoList').empty();
         //allows user to update the name of any activity by clicking the 
         var activity = $(this).parent();
         var id = $(this).data('id');
@@ -198,8 +198,8 @@ $(document).ready(function () {
 
     $(document).on('click', '.updateMe', function (event) {
         event.preventDefault();
-        $('#toDoList').empty();
-        $('#completeList').empty();
+        // $('#toDoList').empty();
+        // $('#completeList').empty();
         //allows user to update the name of any activity by clicking the 
         var activity = $(this).parent();
         var id = $(this).data('id');
