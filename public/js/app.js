@@ -159,6 +159,7 @@ $(document).ready(function () {
                 var checkbox = $("<i>").attr("class", "fas fa-check-square").addClass('updateMe').attr('data-id', id).attr('data-complete', 0);
                 // $(actDescription).append();
                 $(newDiv).append(newActivity, actDescription, checkbox);
+                console.log(actDescription);
                 $('#toDoList').append(newDiv);
 
             }
@@ -171,7 +172,7 @@ $(document).ready(function () {
         $('#toDoList').empty();
         $('#completeList').empty();
         //allows user to update the name of any activity by clicking the 
-        var activity = $(this);
+        activity = $(this).parents();
         var id = $(this).data('id');
         var newComplete = true;
         var newCompleteState = {
@@ -191,9 +192,10 @@ $(document).ready(function () {
                 var newActivity = $("<p>")
                     .attr("class", "title")
                     .text(activity.attr("data-name"))
-                var actDescription = $('<p>').text(activity.val()).attr("class", "subtitle");
+                var actDescription = $("<p>").text(activity.val()).attr("class", "subtitle");
                 var buttonDelete = $('<button>').text('Delete').addClass('deleteMe').attr('data-id', id);;
                 $(newDiv).append(newActivity, actDescription, buttonDelete);
+                console.log(actDescription);
                 $('#completeList').append(newDiv);
 
             }
@@ -205,16 +207,18 @@ $(document).ready(function () {
         event.preventDefault();
         $('#todolist').empty();
 
-        var activity = $(this).parent();
+        var activity = $(this).parent()
         var id = $(this).data('id');
         var newTodo = false;
-        var newTodoState = {
-            todo: newTodo
+        var newCompleted=false;
+        var newState = {
+            todo: newTodo,
+            completed: newCompleted
         }
 
         $.ajax(`/api/activities/${id}`, {
             type: 'POST',
-            data: newTodoState
+            data: newState
         }).then(function (activityUpdate) {
             console.log(activityUpdate)
             if (activityUpdate) {
