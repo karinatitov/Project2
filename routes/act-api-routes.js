@@ -5,7 +5,7 @@ module.exports = function (app) {
   // Get all examples
   app.get("/api/activities", function (req, res) {
    
-    db.Activity.findAll({}).then(function (activities) {
+    db.Activity.findOne({}).then(function (activities) {
       res.json(activities);
     });
   });

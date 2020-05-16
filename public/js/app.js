@@ -49,7 +49,7 @@ $(document).ready(function () {
         },
     };
     // refreshExamples gets new examples from the db and repopulates the list
-    var refreshActivity = function (event) {
+    $(document).on("click", ".buttonAct", function refreshActivity(event) {
         event.preventDefault();
 
         $("#toHide").hide();
@@ -77,12 +77,8 @@ $(document).ready(function () {
 
                 actList.append(newElement);
             }
-
         })
-
-
-
-    };
+    });
 
     $(document).on("click", "#randomActivity", function (event) {
         event.preventDefault();
@@ -99,34 +95,27 @@ $(document).ready(function () {
 
         API.getActivity(event).then(function (data) {
 
-            for (var item of data) {
+            var item = data[Math.floor(Math.random() * data.length)];
 
-                console.log(data)
+            var newElement = $("<div>")
+                .attr("class", "activityToDo")
+                .attr("data-name", item.act_name)
+            var listedActName = $("<h4>").text(item.act_name);
 
-                var item = data[Math.floor(Math.random() * data.length)];
+            var listedActDesc = $("<p>").text(item.description)
+                .attr("value", item.description);
 
-
-
-
-                var newElement = $("<div>")
-                    .attr("class", "activityToDo")
-                    .attr("data-name", item.act_name)
-                var listedActName = $("<h4>").text(item.act_name);
-
-                var listedActDesc = $("<p>").text(item.description)
-                    .attr("value", item.description);
-
-                let button = $("<button>")
-                    .text("Choose Me")
-                    .addClass("chooseMe")
-                    .attr("data-id", item.id)
-                    .attr("data-todo", item.todo);
+            let button = $("<button>")
+                .text("Choose Me")
+                .addClass("chooseMe")
+                .attr("data-id", item.id)
+                .attr("data-todo", item.todo);
 
 
-                newElement.append(listedActName, listedActDesc, button);
+            newElement.append(listedActName, listedActDesc, button);
 
-                actList.append(newElement);
-            }
+            actList.append(newElement);
+
         })
 
     })
@@ -212,7 +201,7 @@ $(document).ready(function () {
         var activity = $(this).parent()
         var id = $(this).data('id');
         var newTodo = false;
-        var newCompleted=false;
+        var newCompleted = false;
         var newState = {
             todo: newTodo,
             completed: newCompleted
@@ -233,7 +222,7 @@ $(document).ready(function () {
 
 
 
-    var handleFormSubmit = function (event) {
+    $(document).on("click", "#choose", function handleFormSubmit(event) {
         event.preventDefault();
         var activity = {
             act_name: actName.val().trim(),
@@ -250,25 +239,7 @@ $(document).ready(function () {
 
         category.val("");
         Description.val("");
-        act_name.val("");
-    };
-    // handleDeleteBtnClick is called when an example's delete button is clicked
-    // Remove the example from the db and refresh the list
-    var handleDeleteBtnClick = function () {
-        $(document).on('click', '.', function (event) {
-            event.preventDefault();
-            var idToDelete = $(this)
-                .parent()
-                .attr("data-id");
-            API.deleteActivity(idToDelete).then(function () {
-                refreshActivity();
-            });
-        });
-    };
-        // Add event listeners to the submit and delete buttons
-        submitBtn.on("click", handleFormSubmit);
-        actList.on("click", ".delete", handleDeleteBtnClick);
-        btn.on("click", refreshActivity);
-    
-   
+        actName.val("");
+    });
+
 });
