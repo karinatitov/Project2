@@ -3,7 +3,6 @@ $(document).ready(function () {
     $("#toDoList").show();
     $("#completeList").show();
 
-
     // Get references to page elements
     var actName = $("#actName");
     var category = $("#Category");
@@ -11,11 +10,6 @@ $(document).ready(function () {
     var submitBtn = $("#choose");
     var actList = $("#activityList");
     var btn = $(".buttonAct");
-
-
-
-
-
 
     // The API object contains methods for each kind of request we'll make
     var API = {
@@ -49,22 +43,69 @@ $(document).ready(function () {
         },
     };
     // refreshExamples gets new examples from the db and repopulates the list
+    // var refreshActivity = function (event) {
+    //     event.preventDefault();
+
+    //     $("#toHide").hide();
+
+    //     API.getActivityByCategory(event.currentTarget.value).then(function (data) {
+    //         actList.empty();
+    //         for (var item of data) {
+    //             var newElement = $("<div>")
+    //                 .attr("class", "activityToDo")
+    //                 .attr("data-name", item.act_name);
+    //             var listedActName = $("<h4>").text(item.act_name);
+
+    //             var listedActDesc = $("<p>")
+    //                 .text(item.description)
+    //                 .attr("value", item.description);
+
+    //             let button = $("<button>")
+    //                 .text("Choose Me")
+    //                 .addClass("chooseMe is")
+    //                 .attr("data-id", item.id)
+    //                 .attr("data-todo", item.todo);
+
+    //             newElement.append(listedActName, listedActDesc, button);
+
+    //             actList.append(newElement);
+    //         }
+    //     });
+    // };
+
+    // $(document).on("click", "#randomActivity", function (event) {
+    //     event.preventDefault();
+    //     actList.empty();
+
+    //     var activity = $(this).parent();
+    //     var id = $(this).data("id");
+    //     var newTodo = true;
+    //     var newTodoState = {
+    //         todo: newTodo,
+    //     };
+    // refreshExamples gets new examples from the db and repopulates the list
     $(document).on("click", ".buttonAct", function refreshActivity(event) {
         event.preventDefault();
 
         $("#toHide").hide();
 
 
-        API.getActivityByCategory(event.currentTarget.value).then(function (data) {
+        $("#toHide").hide();
 
-            actList.empty();
+        API.getActivity(event).then(function (data) {
             for (var item of data) {
-                var newElement = $("<div>")
-                    .attr("class", "activityToDo")
-                    .attr("data-name", item.act_name)
-                var listedActName = $("<h4>").text(item.act_name);
+
 
                 var listedActDesc = $("<p>").text(item.description);
+
+                var newElement = $("<div>")
+                    .attr("class", "activityToDo")
+                    .attr("data-name", item.act_name);
+                var listedActName = $("<h4>").text(item.act_name);
+
+                var listedActDesc = $("<p>")
+                    .text(item.description)
+                    .attr("value", item.description);
 
                 let button = $("<button>")
                     .text("Choose Me")
@@ -72,13 +113,12 @@ $(document).ready(function () {
                     .attr("data-id", item.id)
                     .attr("data-todo", item.todo);
 
-
                 newElement.append(listedActName, listedActDesc, button);
-
                 actList.append(newElement);
             }
         })
-    });
+    })
+
 
     $(document).on("click", "#randomMe", function (event) {
         event.preventDefault();
@@ -86,12 +126,12 @@ $(document).ready(function () {
 
         $("#toHide").hide();
 
-        
+
 
         API.getActivity(event.currentTarget.value).then(function (data) {
             console.log(data)
 
-var randomActivity = data[Math.floor(Math.random() * data.length)];
+            var randomActivity = data[Math.floor(Math.random() * data.length)];
 
 
             console.log(randomActivity);
@@ -240,5 +280,6 @@ var randomActivity = data[Math.floor(Math.random() * data.length)];
         Description.val("");
         actName.val("");
     });
+
 
 });
