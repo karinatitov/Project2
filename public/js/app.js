@@ -3,6 +3,7 @@ $(document).ready(function () {
   $("#toDoList").show();
   $("#completeList").show();
 
+
   // Get references to page elements
   var actName = $("#actName");
   var category = $("#Category");
@@ -11,122 +12,79 @@ $(document).ready(function () {
   var actList = $("#activityList");
   var btn = $(".buttonAct");
 
+
+
+
+
+
   // The API object contains methods for each kind of request we'll make
   var API = {
-    saveActivity: function (activity) {
-      return $.ajax({
-        headers: {
-          "Content-Type": "application/json",
-        },
-        type: "POST",
-        url: "api/activities",
-        data: JSON.stringify(activity),
-      });
-    },
-    getActivity: function () {
-      return $.ajax({
-        url: "api/activities",
-        type: "GET",
-      });
-    },
-    getActivityByCategory: function (categoryToShow) {
-      return $.ajax({
-        url: "api/activities/" + categoryToShow,
-        type: "GET",
-      });
-    },
-    deleteActivity: function (id) {
-      return $.ajax({
-        url: "api/activities/:" + id,
-        type: "DELETE",
-      });
-    },
+      saveActivity: function (activity) {
+          return $.ajax({
+              headers: {
+                  "Content-Type": "application/json",
+              },
+              type: "POST",
+              url: "api/activities",
+              data: JSON.stringify(activity),
+          });
+      },
+      getActivity: function () {
+          return $.ajax({
+              url: "api/activities",
+              type: "GET",
+          });
+      },
+      getActivityByCategory: function (categoryToShow) {
+          return $.ajax({
+              url: "api/activities/" + categoryToShow,
+              type: "GET",
+          });
+      },
+      deleteActivity: function (id) {
+          return $.ajax({
+              url: "api/activities/:" + id,
+              type: "DELETE",
+          });
+      },
   };
   // refreshExamples gets new examples from the db and repopulates the list
   var refreshActivity = function (event) {
-    event.preventDefault();
+      event.preventDefault();
 
-    $("#toHide").hide();
+      $("#toHide").hide();
 
-    API.getActivityByCategory(event.currentTarget.value).then(function (data) {
-      actList.empty();
-      for (var item of data) {
-        var newElement = $("<div>")
-          .attr("class", "activityToDo")
-          .attr("data-name", item.act_name);
-        var listedActName = $("<h4>").text(item.act_name);
 
-        var listedActDesc = $("<p>")
-          .text(item.description)
-          .attr("value", item.description);
+      API.getActivityByCategory(event.currentTarget.value).then(function (data) {
 
-        let button = $("<button>")
-          .text("Choose Me")
-          .addClass("chooseMe is")
-          .attr("data-id", item.id)
-          .attr("data-todo", item.todo);
+          actList.empty();
+          for (var item of data) {
+              var newElement = $("<div>")
+                  .attr("class", "activityToDo")
+                  .attr("data-name", item.act_name)
+              var listedActName = $("<h4>").text(item.act_name);
 
-        newElement.append(listedActName, listedActDesc, button);
+              var listedActDesc = $("<p>").text(item.description);
 
-        actList.append(newElement);
-      }
-    });
+              let button = $("<button>")
+                  .text("Choose Me")
+                  .addClass("chooseMe")
+                  .attr("data-id", item.id)
+                  .attr("data-todo", item.todo);
+
+
+              newElement.append(listedActName, listedActDesc, button);
+
+              actList.append(newElement);
+          }
+
+      })
+
+
+
   };
 
   $(document).on("click", "#randomActivity", function (event) {
-    event.preventDefault();
-    actList.empty();
-
-    var activity = $(this).parent();
-    var id = $(this).data("id");
-    var newTodo = true;
-    var newTodoState = {
-      todo: newTodo,
-    };
-
-    $("#toHide").hide();
-
-    API.getActivity(event).then(function (data) {
-      for (var item of data) {
-        console.log(data);
-
-        var listedActDesc = $("<p>").text(item.description);
-
-        var newElement = $("<div>")
-          .attr("class", "activityToDo")
-          .attr("data-name", item.act_name);
-        var listedActName = $("<h4>").text(item.act_name);
-
-        var listedActDesc = $("<p>")
-          .text(item.description)
-          .attr("value", item.description);
-
-        let button = $("<button>")
-          .text("Choose Me")
-          .addClass("chooseMe")
-          .attr("data-id", item.id)
-          .attr("data-todo", item.todo);
-
-        newElement.append(listedActName, listedActDesc, button);
-
-        actList.append(newElement);
-      }
-    });
-  });
-
-  $(document).on("click", ".chooseMe", function (event) {
-    event.preventDefault();
-
-    $("#toDoList").empty();
-    //allows user to update the name of any activity by clicking the
-    var activity = $(this).parent();
-    var id = $(this).data("id");
-    var newTodo = true;
-    var newTodoState = {
-      todo: newTodo,
-    };
-
-    $(document).on("click", "#randomActivity", function (event) {
       event.preventDefault();
       actList.empty();
 
@@ -134,46 +92,46 @@ $(document).ready(function () {
       var id = $(this).data('id');
       var newTodo = true;
       var newTodoState = {
-        todo: newTodo
+          todo: newTodo
       }
 
       $("#toHide").hide();
 
       API.getActivity(event).then(function (data) {
 
-        for (var item of data) {
+          for (var item of data) {
 
-          console.log(data)
+              console.log(data)
 
-          var item = data[Math.floor(Math.random() * data.length)];
-
-
+              var item = data[Math.floor(Math.random() * data.length)];
 
 
-          var newElement = $("<div>")
-            .attr("class", "activityToDo")
-            .attr("data-name", item.act_name)
-          var listedActName = $("<h4>").text(item.act_name);
-
-          var listedActDesc = $("<p>").text(item.description)
-            .attr("value", item.description);
-
-          let button = $("<button>")
-            .text("Choose Me")
-            .addClass("chooseMe")
-            .attr("data-id", item.id)
-            .attr("data-todo", item.todo);
 
 
-          newElement.append(listedActName, listedActDesc, button);
+              var newElement = $("<div>")
+                  .attr("class", "activityToDo")
+                  .attr("data-name", item.act_name)
+              var listedActName = $("<h4>").text(item.act_name);
 
-          actList.append(newElement);
-        }
+              var listedActDesc = $("<p>").text(item.description)
+                  .attr("value", item.description);
+
+              let button = $("<button>")
+                  .text("Choose Me")
+                  .addClass("chooseMe")
+                  .attr("data-id", item.id)
+                  .attr("data-todo", item.todo);
+
+
+              newElement.append(listedActName, listedActDesc, button);
+
+              actList.append(newElement);
+          }
       })
 
-    })
+  })
 
-    $(document).on('click', '.chooseMe', function (event) {
+  $(document).on('click', '.chooseMe', function (event) {
       event.preventDefault();
 
       $('#toDoList').empty();
@@ -182,34 +140,35 @@ $(document).ready(function () {
       var id = $(this).data('id');
       var newTodo = true;
       var newTodoState = {
-        todo: newTodo
+          todo: newTodo
       }
 
 
       $.ajax(`/api/activities/${id}`, {
-        type: 'POST',
-        data: newTodoState
+          type: 'POST',
+          data: newTodoState
       }).then(function (activityUpdate) {
-        console.log(activityUpdate)
-        if (activityUpdate) {
-          activity.remove();
-          var newDiv = $('<div>')
-            .attr("class", "tile is-child box")
-          var newActivity = $("<p>")
-            .attr("class", "title")
-            .text(activity.attr("data-name"))
-          var actDescription = $('<p>').text(activity.val()).attr("class", "subtitle");
-          var checkbox = $("<i>").attr("class", "fas fa-check-square").addClass('updateMe').attr('data-id', id).attr('data-complete', 0);
-          // $(actDescription).append();
-          $(newDiv).append(newActivity, actDescription, checkbox);
-          $('#toDoList').append(newDiv);
+          console.log(activityUpdate)
+          if (activityUpdate) {
+              activity.remove();
+              var newDiv = $('<div>')
+                  .attr("class", "tile is-child box")
+              var newActivity = $("<p>")
+                  .attr("class", "title")
+                  .text(activity.attr("data-name"))
+              var actDescription = $('<p>').text(activity.val()).attr("class", "subtitle").text(activityUpdate.description);
+              var checkbox = $("<i>").attr("class", "fas fa-check-square").addClass('updateMe').attr('data-id', id).attr('data-complete', 0);
+              // $(actDescription).append();
+              $(newDiv).append(newActivity, actDescription, checkbox);
+              console.log(actDescription);
+              $('#toDoList').append(newDiv);
 
-        }
+          }
 
       })
-    })
+  })
 
-    $(document).on('click', '.updateMe', function (event) {
+  $(document).on('click', '.updateMe', function (event) {
       event.preventDefault();
       $('#toDoList').empty();
       $('#completeList').empty();
@@ -218,154 +177,98 @@ $(document).ready(function () {
       var id = $(this).data('id');
       var newComplete = true;
       var newCompleteState = {
-        completed: newComplete
+          completed: newComplete
       }
 
 
       $.ajax(`/api/activities/${id}`, {
-        type: 'POST',
-        data: newCompleteState
+          type: 'POST',
+          data: newCompleteState
       }).then(function (activityUpdate) {
-        console.log(activity)
-        if (activityUpdate) {
-          activity.remove();
-          var newDiv = $('<div>')
-            .attr("class", "tile is-child box")
-          var newActivity = $("<p>")
-            .attr("class", "title")
-            .text(activity.attr("data-name"))
-          var actDescription = $('<p>').text(activity.val()).attr("class", "subtitle");
-          var buttonDelete = $('<button>').text('Delete').addClass('deleteMe').attr('data-id', id);
+          console.log(activityUpdate)
+          if (activityUpdate) {
+              activity.remove();
+              var newDiv = $('<div>')
+                  .attr("class", "tile is-child box")
+              var newActivity = $("<p>")
+                  .attr("class", "title")
+                  .text(activityUpdate.act_name)
+              var actDescription = $('<p>').text(activity.val()).attr("class", "subtitle").text(activityUpdate.description);
+              var buttonDelete = $('<button>').text('Delete').addClass('deleteMe').attr('data-id', id);
 
-          $(newDiv).append(newActivity, actDescription, buttonDelete);
-          $('#completeList').append(newDiv);
+              $(newDiv).append(newActivity, actDescription, buttonDelete);
+              console.log(actDescription);
+              $('#completeList').append(newDiv);
 
-        }
+          }
 
       })
-    })
+  })
 
-    $(document).on('click', '.deleteMe', function (event) {
+  $(document).on('click', '.deleteMe', function (event) {
       event.preventDefault();
       $('#todolist').empty();
 
-      var activity = $(this).parent();
+      var activity = $(this).parent()
       var id = $(this).data('id');
       var newTodo = false;
-      var newTodoState = {
-        todo: newTodo
+      var newCompleted=false;
+      var newState = {
+          todo: newTodo,
+          completed: newCompleted
       }
 
       $.ajax(`/api/activities/${id}`, {
-        type: 'POST',
-        data: newTodoState
+          type: 'POST',
+          data: newState
       }).then(function (activityUpdate) {
-        console.log(activityUpdate)
-        if (activityUpdate) {
-          activity.remove();
-        }
+          console.log(activityUpdate)
+          if (activityUpdate) {
+              activity.remove();
+          }
       })
-    })
+  })
 
 
 
 
-
-    var handleFormSubmit = function (event) {
-      event.preventDefault();
-      var activity = {
-        act_name: actName.val().trim(),
-        category: category.val().trim(),
-        description: Description.val().trim(),
-      };
-      if (!(activity.category && activity.description)) {
-        alert("You must enter an activity category and description!");
-        return;
-      }
-      API.saveActivity(activity).then(function () {
-        refreshActivity();
-      });
-
-      $.ajax(`/api/activities/${id}`, {
-        type: "POST",
-        data: newCompleteState,
-      }).then(function (activityUpdate) {
-        console.log(activityUpdate);
-        if (activityUpdate) {
-          activity.remove();
-          var newDiv = $("<div>").attr("class", "tile is-child box");
-          var newActivity = $("<p>")
-            .attr("class", "title")
-            .text(activity.attr("data-name"));
-          var actDescription = $("<p>")
-            .text(activity.val())
-            .attr("class", "subtitle");
-          var buttonDelete = $("<button>")
-            .text("Delete")
-            .addClass("deleteMe")
-            .attr("data-id", id);
-          $(newDiv).append(newActivity, actDescription, buttonDelete);
-          $("#completeList").append(newDiv);
-        }
-      });
-    };
-
-  $(document).on("click", ".deleteMe", function (event) {
-    event.preventDefault();
-    $("#todolist").empty();
-
-    var activity = $(this).parent();
-    var id = $(this).data("id");
-    var newTodo = false;
-    var newTodoState = {
-      todo: newTodo,
-    };
-
-    $.ajax(`/api/activities/${id}`, {
-      type: "POST",
-      data: newTodoState,
-    }).then(function (activityUpdate) {
-      console.log(activityUpdate);
-      if (activityUpdate) {
-        activity.remove();
-      }
-    });
-  });
 
   var handleFormSubmit = function (event) {
-    event.preventDefault();
-    var activity = {
-      act_name: actName.val().trim(),
-      category: category.val().trim(),
-      description: Description.val().trim(),
-    };
-    if (!(activity.category && activity.description)) {
-      alert("You must enter an activity category and description!");
-      return;
-    }
-    API.saveActivity(activity).then(function () {
-      refreshActivity();
-    });
+      event.preventDefault();
+      var activity = {
+          act_name: actName.val().trim(),
+          category: category.val().trim(),
+          description: Description.val().trim(),
+      };
+      if (!(activity.category && activity.description)) {
+          alert("You must enter an activity category and description!");
+          return;
+      }
+      API.saveActivity(activity).then(function () {
+          refreshActivity();
+      });
 
-    category.val("");
-    Description.val("");
+      category.val("");
+      Description.val("");
+      act_name.val("");
   };
   // handleDeleteBtnClick is called when an example's delete button is clicked
   // Remove the example from the db and refresh the list
   var handleDeleteBtnClick = function () {
-    $(document).on("click", ".", function (event) {
-      event.preventDefault();
-      var idToDelete = $(this)
-        .parent()
-        .attr("data-id");
-      API.deleteActivity(idToDelete).then(function () {
-        refreshActivity();
+      $(document).on('click', '.', function (event) {
+          event.preventDefault();
+          var idToDelete = $(this)
+              .parent()
+              .attr("data-id");
+          API.deleteActivity(idToDelete).then(function () {
+              refreshActivity();
+          });
       });
-    });
   };
-  // Add event listeners to the submit and delete buttons
-  submitBtn.on("click", handleFormSubmit);
-  actList.on("click", ".delete", handleDeleteBtnClick);
-  btn.on("click", refreshActivity);
-  })
-})
+      // Add event listeners to the submit and delete buttons
+      submitBtn.on("click", handleFormSubmit);
+      actList.on("click", ".delete", handleDeleteBtnClick);
+      btn.on("click", refreshActivity);
+  
+ 
+});
