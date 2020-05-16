@@ -80,36 +80,35 @@ $(document).ready(function () {
         })
     });
 
-    $(document).on("click", "#randomActivity", function (event) {
+    $(document).on("click", "#randomMe", function (event) {
         event.preventDefault();
         actList.empty();
 
-        var activity = $(this).parent();
-        var id = $(this).data('id');
-        var newTodo = true;
-        var newTodoState = {
-            todo: newTodo
-        }
-
         $("#toHide").hide();
 
-        API.getActivity(event).then(function (data) {
+        
 
-            var item = data[Math.floor(Math.random() * data.length)];
+        API.getActivity().then(function (data) {
+            console.log(data)
+
+var randomActivity = data[Math.floor(Math.random() * data.length)];
+
+
+            console.log(randomActivity);
 
             var newElement = $("<div>")
                 .attr("class", "activityToDo")
-                .attr("data-name", item.act_name)
-            var listedActName = $("<h4>").text(item.act_name);
+                .attr("data-name", randomActivity.act_name)
+            var listedActName = $("<h4>").text(randomActivity.act_name);
 
-            var listedActDesc = $("<p>").text(item.description)
-                .attr("value", item.description);
+            var listedActDesc = $("<p>").text(randomActivity.description)
+                .attr("value", randomActivity.description);
 
             let button = $("<button>")
                 .text("Choose Me")
                 .addClass("chooseMe")
-                .attr("data-id", item.id)
-                .attr("data-todo", item.todo);
+                .attr("data-id", randomActivity.id)
+                .attr("data-todo", randomActivity.todo);
 
 
             newElement.append(listedActName, listedActDesc, button);
