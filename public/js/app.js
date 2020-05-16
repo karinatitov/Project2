@@ -64,8 +64,7 @@ $(document).ready(function () {
                     .attr("data-name", item.act_name)
                 var listedActName = $("<h4>").text(item.act_name);
 
-                var listedActDesc = $("<p>").text(item.description)
-                    .attr("value", item.description);
+                var listedActDesc = $("<p>").text(item.description);
 
                 let button = $("<button>")
                     .text("Choose Me")
@@ -105,6 +104,8 @@ $(document).ready(function () {
                 console.log(data)
 
                 var item = data[Math.floor(Math.random() * data.length)];
+
+
 
 
                 var newElement = $("<div>")
@@ -171,7 +172,7 @@ $(document).ready(function () {
         $('#toDoList').empty();
         $('#completeList').empty();
         //allows user to update the name of any activity by clicking the 
-        var activity = $(this);
+        var activity = $(this).parent();
         var id = $(this).data('id');
         var newComplete = true;
         var newCompleteState = {
@@ -183,7 +184,7 @@ $(document).ready(function () {
             type: 'POST',
             data: newCompleteState
         }).then(function (activityUpdate) {
-            console.log(activityUpdate)
+            console.log(activity)
             if (activityUpdate) {
                 activity.remove();
                 var newDiv = $('<div>')
@@ -192,7 +193,8 @@ $(document).ready(function () {
                     .attr("class", "title")
                     .text(activity.attr("data-name"))
                 var actDescription = $('<p>').text(activity.val()).attr("class", "subtitle");
-                var buttonDelete = $('<button>').text('Delete').addClass('deleteMe').attr('data-id', id);;
+                var buttonDelete = $('<button>').text('Delete').addClass('deleteMe').attr('data-id', id);
+
                 $(newDiv).append(newActivity, actDescription, buttonDelete);
                 $('#completeList').append(newDiv);
 

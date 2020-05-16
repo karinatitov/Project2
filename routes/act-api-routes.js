@@ -24,7 +24,6 @@ module.exports = function (app) {
       console.log(dbActivities);
       res.json(dbActivities);
 
-
     });
   });
 
@@ -42,12 +41,20 @@ module.exports = function (app) {
     db.Activity.update(req.body, {
       where: {
         id: req.params.id
+
       }
-    }).then(function (dbActivity) {
-     
-      console.log(dbActivity);
-      res.json(dbActivity);
+    }).then(function () {
+      return db.Activity.findOne({
+        where: {
+          id: req.params.id
+        }
+      });
+    }).then(function(response) {
+      res.json(response);
+    }).catch(function(err) {
+      res.json(err);
     });
+  
   });
 
   // Delete an example by id
