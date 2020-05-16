@@ -64,8 +64,7 @@ $(document).ready(function () {
                     .attr("data-name", item.act_name)
                 var listedActName = $("<h4>").text(item.act_name);
 
-                var listedActDesc = $("<p>").text(item.description)
-                    .attr("value", item.description);
+                var listedActDesc = $("<p>").text(item.description);
 
                 let button = $("<button>")
                     .text("Choose Me")
@@ -105,6 +104,8 @@ $(document).ready(function () {
                 console.log(data)
 
                 var item = data[Math.floor(Math.random() * data.length)];
+
+
 
 
                 var newElement = $("<div>")
@@ -155,7 +156,7 @@ $(document).ready(function () {
                 var newActivity = $("<p>")
                     .attr("class", "title")
                     .text(activity.attr("data-name"))
-                var actDescription = $('<p>').text(activity.val()).attr("class", "subtitle");
+                var actDescription = $('<p>').text(activity.val()).attr("class", "subtitle").text(activityUpdate.description);
                 var checkbox = $("<i>").attr("class", "fas fa-check-square").addClass('updateMe').attr('data-id', id).attr('data-complete', 0);
                 // $(actDescription).append();
                 $(newDiv).append(newActivity, actDescription, checkbox);
@@ -172,7 +173,7 @@ $(document).ready(function () {
         $('#toDoList').empty();
         $('#completeList').empty();
         //allows user to update the name of any activity by clicking the 
-        activity = $(this).parents();
+        var activity = $(this).parent();
         var id = $(this).data('id');
         var newComplete = true;
         var newCompleteState = {
@@ -191,9 +192,10 @@ $(document).ready(function () {
                     .attr("class", "tile is-child box")
                 var newActivity = $("<p>")
                     .attr("class", "title")
-                    .text(activity.attr("data-name"))
-                var actDescription = $("<p>").text(activity.val()).attr("class", "subtitle");
-                var buttonDelete = $('<button>').text('Delete').addClass('deleteMe').attr('data-id', id);;
+                    .text(activityUpdate.act_name)
+                var actDescription = $('<p>').text(activity.val()).attr("class", "subtitle").text(activityUpdate.description);
+                var buttonDelete = $('<button>').text('Delete').addClass('deleteMe').attr('data-id', id);
+
                 $(newDiv).append(newActivity, actDescription, buttonDelete);
                 console.log(actDescription);
                 $('#completeList').append(newDiv);
@@ -248,6 +250,7 @@ $(document).ready(function () {
 
         category.val("");
         Description.val("");
+        act_name.val("");
     };
     // handleDeleteBtnClick is called when an example's delete button is clicked
     // Remove the example from the db and refresh the list
