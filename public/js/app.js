@@ -5,7 +5,7 @@ $(document).ready(function () {
 
     // Get references to page elements
     var actName = $("#actName");
-    var category = $("#Category");
+    var category = $("#category");
     var Description = $("#actDescription");
     var submitBtn = $("#choose");
     var actList = $("#activityList");
