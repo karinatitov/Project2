@@ -101,11 +101,12 @@ $(document).ready(function () {
                 var newElement = $("<div>")
                     .attr("class", "activityToDo")
                     .attr("data-name", item.act_name);
-                var listedActName = $("<h4>").text(item.act_name);
+                var listedActName = $("<h4>").text(item.act_name).attr("class", "title");
 
                 var listedActDesc = $("<p>")
                     .text(item.description)
-                    .attr("value", item.description);
+                    .attr("value", item.description)
+                    .attr("class", "subtitle");
 
                 let button = $("<button>")
                     .text("Choose Me")
@@ -129,20 +130,20 @@ $(document).ready(function () {
 
 
         API.getActivity(event.currentTarget.value).then(function (data) {
-            console.log(data)
+
 
             var randomActivity = data[Math.floor(Math.random() * data.length)];
 
 
-            console.log(randomActivity);
+
 
             var newElement = $("<div>")
                 .attr("class", "activityToDo")
                 .attr("data-name", randomActivity.act_name)
-            var listedActName = $("<h4>").text(randomActivity.act_name);
+            var listedActName = $("<p>").text(randomActivity.act_name).attr("class", "title");
 
             var listedActDesc = $("<p>").text(randomActivity.description)
-                .attr("value", randomActivity.description);
+                .attr("value", randomActivity.description).attr("class", "subtitle");
 
             let button = $("<button>")
                 .text("Choose Me")
@@ -176,7 +177,7 @@ $(document).ready(function () {
             type: 'POST',
             data: newTodoState
         }).then(function (activityUpdate) {
-            console.log(activityUpdate)
+
             if (activityUpdate) {
                 activity.remove();
                 var newDiv = $('<div>')
