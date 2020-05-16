@@ -2,7 +2,7 @@
   <div class="hero-body">
     <div class="container has-text-centered">
       <div class="column is-6 is-offset-3">
-        <h1 class="title has-text-danger cursive; text-align:center;" style="font-family: 'Bungee Outline', cursive;">
+        <h1 class="title has-text-danger" id="banner" style="font-family: 'Bungee Outline', cursive; font-size: 4rem;">
           Verb-its!
         </h1>
         <hr class="login-hr">
@@ -12,29 +12,33 @@
           <form action="/register" method="POST">
             <div class="field">
               <div class="control">
-                <input class="input is-large" type="text" name="first_name" placeholder="First Name" autofocus="">
+                <input class="input is-large" type="text" name="first_name" placeholder="First Name" autofocus=""
+                  style="text-align: center;">
               </div>
             </div>
             <div class="field">
               <div class="control">
-                <input class="input is-large" type="text" name="last_name" placeholder="Last Name" autofocus="">
+                <input class="input is-large" type="text" name="last_name" placeholder="Last Name" autofocus=""
+                  style="text-align: center;">
               </div>
             </div>
             <div class="field">
               <div class="control">
-                <input class="input is-large" type="email" name="email" placeholder="Example123@email.com" autofocus="">
+                <input class="input is-large" type="email" name="email" placeholder="Email" autofocus=""
+                  style="text-align: center;">
               </div>
             </div>
             <div class="field">
               <div class="control">
-                <input class="input is-large" type="password" name="password" placeholder="Your Password">
+                <input class="input is-large" type="password" name="password" placeholder="Password"
+                  style="text-align: center;">
               </div>
             </div>
-            <button type="submit" class="button button is-link is-light is-large is-fullwidth">Register </button>
+            <button type="submit" class="button is-large is-danger has-text-white">Register </button>
           </form>
         </div>
         <p class="has-text-grey">
-          <a href="/login">Go Back!</a> &nbsp;·&nbsp;>
+          <a href="/login">Go Back!</a> 
         </p>
       </div>
     </div>

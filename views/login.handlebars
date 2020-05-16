@@ -2,7 +2,7 @@
   <div class="hero-body">
     <div class="container has-text-centered">
       <div class="column is-6 is-offset-3">
-        <h1 class="title has-text-danger" style="font-family: 'Bungee Outline', cursive; font-size: 2rem;">
+        <h1 class="title has-text-danger" id="banner" style="font-family: 'Bungee Outline', cursive; font-size: 3rem;">
           Verb-its!
         </h1>
         <hr class="login-hr">
@@ -11,20 +11,21 @@
           <form action="/login" method="POST">
             <div class="field">
               <div class="control">
-                <input class="input is-large" type="email" name="email" placeholder="Your Email" autofocus="">
+                <input class="input is-large" type="email" name="email" placeholder="Your Email" autofocus="" style="text-align: center;">
               </div>
             </div>
             <div class="field">
               <div class="control">
-                <input class="input is-large" type="password" name="password" placeholder="Your Password">
+                <input class="input is-large" type="password" name="password" placeholder="Your Password" style="text-align: center;">
               </div>
             </div>
-            <button class="button is-large is-info is-light has-text-danger">Login </button> <button
-              class="button is-large is-info is-light has-text-danger"><a href="/register">Register</a></button>
+            <button class="button is-large is-danger has-text-white" style="margin: 5px;">Login </button> 
+            <button
+              class="button is-large is-danger has-text-white" style="margin: 5px;"><a href="/register" class="has-text-white">Register</a></button>
           </form>
         </div>
-        <p class="has-text-grey">
-          <a href="/guest">Continue as guest</a> &nbsp;·&nbsp;>
+        <p class="has-text-danger">
+          <a href="/guest">Continue As Guest</a> 
         </p>
       </div>
     </div>
