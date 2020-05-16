@@ -88,7 +88,7 @@ $(document).ready(function () {
 
         
 
-        API.getActivity().then(function (data) {
+        API.getActivity(event.currentTarget.value).then(function (data) {
             console.log(data)
 
 var randomActivity = data[Math.floor(Math.random() * data.length)];
